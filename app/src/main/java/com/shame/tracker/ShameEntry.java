@@ -34,43 +34,44 @@ public class ShameEntry {
     private boolean isWeekend;
 
     // Getters and Setters
-    public String getId() {
-        return id;
+    // Constructors
+    public ShameEntry() {}
+
+    public ShameEntry(String loggedAt, String location, String triggerMood, String notes) {
+        this.loggedAt = loggedAt;
+        this.location = location;
+        this.triggerMood = triggerMood;
+        this.notes = notes;
     }
 
-    public String getLoggedAt() {
-        return loggedAt;
-    }
+    // Getters and Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getLocation() {
-        return location;
-    }
+    public String getLoggedAt() { return loggedAt; }
+    public void setLoggedAt(String loggedAt) { this.loggedAt = loggedAt; }
 
-    public String getTriggerMood() {
-        return triggerMood;
-    }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
-    public double getCost() {
-        return cost;
-    }
+    public String getTriggerMood() { return triggerMood; }
+    public void setTriggerMood(String triggerMood) { this.triggerMood = triggerMood; }
 
-    public String getNotes() {
-        return notes;
-    }
+    public double getCost() { return cost; }
+    public void setCost(double cost) { this.cost = cost; }
 
-    public Integer getDayOfWeek() {
-        return dayOfWeek;
-    }
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 
-    public Integer getHour() {
-        return hour;
-    }
+    public Integer getDayOfWeek() { return dayOfWeek; }
+    public void setDayOfWeek(Integer dayOfWeek) { this.dayOfWeek = dayOfWeek; }
 
-    public Integer getMinute() {
-        return minute;
-    }
+    public Integer getHour() { return hour; }
+    public void setHour(Integer hour) { this.hour = hour; }
 
-    public boolean isWeekend() {
-        return isWeekend;
-    }
+    public Integer getMinute() { return minute; }
+    public void setMinute(Integer minute) { this.minute = minute; }
+
+    public boolean isWeekend() { return isWeekend; }
+    public void setIsWeekend(boolean weekend) { isWeekend = weekend; }
 }
