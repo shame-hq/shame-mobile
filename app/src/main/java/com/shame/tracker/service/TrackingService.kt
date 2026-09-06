@@ -19,6 +19,7 @@ import com.shame.tracker.data.db.entity.Lap
 import com.shame.tracker.data.db.entity.Session
 import com.shame.tracker.data.model.TrackingState
 import com.shame.tracker.data.repository.SessionRepository
+import com.shame.tracker.util.SyncScheduler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -153,6 +154,10 @@ class TrackingService : Service(), LocationListener, SensorEventListener {
         }
         locationManager.removeUpdates(this@TrackingService)
         sensorManager?.unregisterListener(this@TrackingService)
+        
+        // Trigger background sync to Supabase immediately after run finishes
+        SyncScheduler.scheduleImmediate(this@TrackingService)
+        
         return activeSessionId
     }
 
