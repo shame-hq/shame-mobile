@@ -1,0 +1,15 @@
+# Built outputs
+/build/
+/app/build/
+
+# Local machine config
+local.properties
+
+# Gradle caches
+.gradle/
+
+# Android Studio metadata
+.idea/
+*.iml
+*.ipr
+*.iws

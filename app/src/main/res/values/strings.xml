@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shame Tracker</string>
+
+    <!-- Home -->
+    <string name="start_session">Start Run</string>
+    <string name="no_recent_run">No runs yet. Tap Start Run to begin!</string>
+    <string name="last_run">Last Run</string>
+    <string name="personal_bests">Personal Bests</string>
+    <string name="history">History</string>
+    <string name="charts">Charts</string>
+    <string name="settings">Settings</string>
+
+    <!-- Active session -->
+    <string name="elapsed_time">Elapsed Time</string>
+    <string name="lap_count">Lap</string>
+    <string name="current_lap">Current Lap</string>
+    <string name="last_lap">Last Lap</string>
+    <string name="steps">Steps</string>
+    <string name="pace">Pace</string>
+    <string name="cadence">Cadence</string>
+    <string name="distance">Distance</string>
+    <string name="end_lap">End Lap</string>
+    <string name="pause_session">Pause</string>
+    <string name="resume_session">Resume</string>
+    <string name="end_session">End Session</string>
+    <string name="laps">Laps</string>
+
+    <!-- Confirmation dialogs -->
+    <string name="confirm_end_lap">End this lap?</string>
+    <string name="confirm_end_lap_msg">This will record the current lap and start a new one.</string>
+    <string name="confirm_pause">Pause session?</string>
+    <string name="confirm_pause_msg">The timer will stop. GPS tracking will continue.</string>
+    <string name="confirm_end_session">End session?</string>
+    <string name="confirm_end_session_msg">This will save all recorded laps and finish the run.</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Session names -->
+    <string name="session_name_morning">Morning Run</string>
+    <string name="session_name_evening">Evening Run</string>
+    <string name="session_name_afternoon">Afternoon Run</string>
+    <string name="session_name_custom">Custom</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_tracking">Active Run</string>
+    <string name="notification_tracking_title">Run in progress</string>
+
+    <!-- Units -->
+    <string name="unit_km">km</string>
+    <string name="unit_m">m</string>
+    <string name="unit_spm">spm</string>
+    <string name="unit_min_per_km">/km</string>
+
+    <!-- Settings -->
+    <string name="pref_step_length">Step length (cm)</string>
+    <string name="pref_step_length_summary">Used for step-based distance estimation</string>
+    <string name="pref_body_weight">Body weight (kg)</string>
+    <string name="pref_body_weight_summary">Used for calorie estimation</string>
+    <string name="pref_dark_mode">Dark mode</string>
+    <string name="pref_reminder">Run reminder</string>
+    <string name="pref_reminder_days">Remind me after N days without running</string>
+    <string name="pref_auto_lap">Auto-lap (GPS geofence)</string>
+    <string name="pref_auto_lap_summary">Automatically end a lap when you return to the starting point</string>
+    <string name="pref_geofence_radius">Geofence radius (m)</string>
+    <string name="pref_download_map">Download offline map</string>
+    <string name="pref_download_map_summary">Cache OSM tiles for 5 km around your current location</string>
+
+    <!-- Export -->
+    <string name="export_csv">Export CSV</string>
+    <string name="export_gpx">Export GPX</string>
+    <string name="export_json">Export JSON</string>
+
+    <!-- Errors -->
+    <string name="error_location_permission">Location permission is required to track your route.</string>
+    <string name="error_activity_permission">Activity recognition permission is required to count steps.</string>
+    <string name="error_gps_unavailable">GPS unavailable. Please enable location services.</string>
+</resources>

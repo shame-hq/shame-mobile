@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary brand colour — clean slate blue -->
+    <color name="primary">#1E3A5F</color>
+    <color name="primary_variant">#16304F</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- Surface & background -->
+    <color name="background">#F8F9FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#1A1A2E</color>
+    <color name="on_surface_medium">#6B7280</color>
+
+    <!-- Accent: running orange for active states -->
+    <color name="accent">#F97316</color>
+    <color name="accent_light">#FED7AA</color>
+
+    <!-- Lap colours — used for map overlays, cycling per lap -->
+    <color name="lap_1">#3B82F6</color>
+    <color name="lap_2">#10B981</color>
+    <color name="lap_3">#F59E0B</color>
+    <color name="lap_4">#EF4444</color>
+    <color name="lap_5">#8B5CF6</color>
+    <color name="lap_6">#EC4899</color>
+
+    <!-- Status colours -->
+    <color name="success">#10B981</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#EF4444</color>
+
+    <!-- Dark theme equivalents -->
+    <color name="dark_background">#0F172A</color>
+    <color name="dark_surface">#1E293B</color>
+    <color name="dark_on_surface">#F1F5F9</color>
+</resources>

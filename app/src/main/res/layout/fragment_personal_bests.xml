@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal Bests"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Longest Distance -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Longest Distance" android:textSize="12sp" android:alpha="0.6"/>
+                <TextView android:id="@+id/tvBestDistance" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="--" android:textSize="32sp"
+                    android:textStyle="bold" android:textColor="@color/accent"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Most Laps -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Most Laps in a Run" android:textSize="12sp" android:alpha="0.6"/>
+                <TextView android:id="@+id/tvBestLaps" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="--" android:textSize="32sp"
+                    android:textStyle="bold" android:textColor="@color/accent"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Best Pace -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Best Pace" android:textSize="12sp" android:alpha="0.6"/>
+                <TextView android:id="@+id/tvBestPace" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="--" android:textSize="32sp"
+                    android:textStyle="bold" android:textColor="@color/accent"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Total Runs -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Total Runs" android:textSize="12sp" android:alpha="0.6"/>
+                <TextView android:id="@+id/tvTotalRuns" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="--" android:textSize="32sp"
+                    android:textStyle="bold" android:textColor="@color/primary"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

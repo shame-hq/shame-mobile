@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Profile">
+        <EditTextPreference
+            android:key="step_length_cm"
+            android:title="@string/pref_step_length"
+            android:summary="@string/pref_step_length_summary"
+            android:defaultValue="75"
+            android:inputType="numberDecimal"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:key="body_weight_kg"
+            android:title="@string/pref_body_weight"
+            android:summary="@string/pref_body_weight_summary"
+            android:defaultValue="70"
+            android:inputType="numberDecimal"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Appearance">
+        <ListPreference
+            android:key="dark_mode"
+            android:title="@string/pref_dark_mode"
+            android:entries="@array/dark_mode_entries"
+            android:entryValues="@array/dark_mode_values"
+            android:defaultValue="system"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Reminders">
+        <SwitchPreferenceCompat
+            android:key="reminder_enabled"
+            android:title="@string/pref_reminder"
+            android:defaultValue="false" />
+
+        <EditTextPreference
+            android:key="reminder_days"
+            android:title="@string/pref_reminder_days"
+            android:defaultValue="3"
+            android:inputType="number"
+            android:dependency="reminder_enabled"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Tracking">
+        <SwitchPreferenceCompat
+            android:key="auto_lap_enabled"
+            android:title="@string/pref_auto_lap"
+            android:summary="@string/pref_auto_lap_summary"
+            android:defaultValue="false" />
+
+        <EditTextPreference
+            android:key="geofence_radius_m"
+            android:title="@string/pref_geofence_radius"
+            android:defaultValue="30"
+            android:inputType="number"
+            android:dependency="auto_lap_enabled"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Map">
+        <Preference
+            android:key="download_map"
+            android:title="@string/pref_download_map"
+            android:summary="@string/pref_download_map_summary" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

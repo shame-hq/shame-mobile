@@ -1,2 +1,13 @@
-rootProject.name = "ShameTracker"
+rootProject.name = "shame-mobile"
+
+// Add JitPack repo for MPAndroidChart
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 include ':app'
