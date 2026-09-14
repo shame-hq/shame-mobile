@@ -1,10 +1,13 @@
 package com.shame.tracker.ui.session
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.Color
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
@@ -23,17 +26,19 @@ import com.shame.tracker.R
 import com.shame.tracker.data.db.entity.GpsPoint
 import com.shame.tracker.data.db.entity.Lap
 import com.shame.tracker.data.model.TrackingState
+import com.shame.tracker.service.EsriSatTileSource
+import com.shame.tracker.service.SatelliteTileDownloadService
 import com.shame.tracker.service.TrackingService
 import com.shame.tracker.util.LapColors
+import com.shame.tracker.util.SatelliteZone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.infowindow.InfoWindow
+import org.osmdroid.views.overlay.Polyline
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -71,19 +76,20 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
             requireContext().getSharedPreferences("osmdroid", Context.MODE_PRIVATE)
         )
 
-        val esriTileSource = com.shame.tracker.service.EsriSatTileSource()
+        val esriTileSource = EsriSatTileSource()
         mapView = view.findViewById<MapView>(R.id.mapView).apply {
             setTileSource(esriTileSource)
             setMultiTouchControls(true)
-            controller.setZoom(17.0)
-            // Center around known home initially
-            controller.setCenter(GeoPoint(com.shame.tracker.util.SatelliteZone.HOME_LAT, com.shame.tracker.util.SatelliteZone.HOME_LON))
+            controller.setZoom(17.5)
         }
 
+        // Fetch last known location immediately so user sees their location right away
+        initUserCurrentLocation()
+
         // Start offline satellite tile prefetch if not downloaded yet
-        if (com.shame.tracker.service.SatelliteTileDownloadService.shouldDownload(requireContext())) {
-            val satIntent = Intent(requireContext(), com.shame.tracker.service.SatelliteTileDownloadService::class.java).apply {
-                action = com.shame.tracker.service.SatelliteTileDownloadService.ACTION_START_DOWNLOAD
+        if (SatelliteTileDownloadService.shouldDownload(requireContext())) {
+            val satIntent = Intent(requireContext(), SatelliteTileDownloadService::class.java).apply {
+                action = SatelliteTileDownloadService.ACTION_START_DOWNLOAD
             }
             requireContext().startService(satIntent)
         }
@@ -138,6 +144,27 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
                 }
                 .setNegativeButton(R.string.cancel, null)
                 .show()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initUserCurrentLocation() {
+        try {
+            val lm = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val providers = listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER, LocationManager.PASSIVE_PROVIDER)
+            val loc: Location? = providers
+                .mapNotNull { runCatching { lm.getLastKnownLocation(it) }.getOrNull() }
+                .maxByOrNull { it.accuracy }
+
+            if (loc != null) {
+                val geo = GeoPoint(loc.latitude, loc.longitude)
+                mapView?.controller?.setCenter(geo)
+                updateUserNavMarker(geo, loc.bearing)
+            } else {
+                mapView?.controller?.setCenter(GeoPoint(SatelliteZone.HOME_LAT, SatelliteZone.HOME_LON))
+            }
+        } catch (e: Exception) {
+            mapView?.controller?.setCenter(GeoPoint(SatelliteZone.HOME_LAT, SatelliteZone.HOME_LON))
         }
     }
 
@@ -202,12 +229,6 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
 
     // ── Map overlay logic ─────────────────────────────────────────────────────
 
-    /**
-     * For each lap, draws a colored polyline.  Each polyline is divided into
-     * SEGMENT_SIZE-point segments; a transparent tap marker is placed at every
-     * segment midpoint so the user can tap a route section and see a popup with
-     * pace, distance, steps, and km for that segment.
-     */
     private fun updateMapOverlays(laps: List<Lap>, pointsMap: Map<Long, List<GpsPoint>>) {
         val map = mapView ?: return
 
@@ -219,61 +240,67 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
             lapPolylines.remove(id)
         }
 
-        var lastPoint: GeoPoint? = null
+        var latestGeoPoint: GeoPoint? = null
 
         for (lap in laps) {
             val pts = pointsMap[lap.id] ?: continue
-            if (pts.size < 2) continue
+            if (pts.isEmpty()) continue
+
+            latestGeoPoint = GeoPoint(pts.last().latitude, pts.last().longitude)
 
             val color = LapColors.forLapNumber(lap.lapNumber)
             val geoPoints = pts.map { GeoPoint(it.latitude, it.longitude) }
 
-            // ── Main polyline ──────────────────────────────────────────────
-            val poly = lapPolylines.getOrPut(lap.id) {
-                Polyline(map).also { p ->
-                    p.outlinePaint.color = color
-                    p.outlinePaint.strokeWidth = 8f
-                    p.outlinePaint.alpha = 220
-                    p.infoWindow = null
-                    map.overlays.add(p)
+            // ── Main polyline (only if >= 2 points) ─────────────────────────
+            if (geoPoints.size >= 2) {
+                val poly = lapPolylines.getOrPut(lap.id) {
+                    Polyline(map).also { p ->
+                        p.outlinePaint.color = color
+                        p.outlinePaint.strokeWidth = 8f
+                        p.outlinePaint.alpha = 220
+                        p.infoWindow = null
+                        map.overlays.add(p)
+                    }
                 }
+                poly.setPoints(geoPoints)
             }
-            poly.setPoints(geoPoints)
 
-            // ── Segment markers every SEGMENT_SIZE points ─────────────────
-            // Remove old segment markers for this lap before re-adding
+            // ── Clear previous segment markers for this lap ─────────────────
             map.overlays.removeAll(
                 map.overlays.filterIsInstance<Marker>()
                     .filter { it.id?.startsWith("seg_${lap.id}_") == true }
             )
 
+            // ── Segment markers: partition lap route into visible chunks ─────
             val segSize = SEGMENT_SIZE
-            val segCount = (geoPoints.size - 1) / segSize
-            for (seg in 0..segCount) {
+            val numSegments = maxOf(1, (pts.size + segSize - 1) / segSize)
+
+            for (seg in 0 until numSegments) {
                 val startIdx = seg * segSize
-                val endIdx = minOf(startIdx + segSize, geoPoints.size - 1)
-                if (startIdx >= endIdx) continue
+                val endIdx = minOf(startIdx + segSize, pts.size - 1)
+                if (startIdx > endIdx || startIdx >= pts.size) continue
 
                 val segPts = pts.subList(startIdx, endIdx + 1)
-                val midGeo = geoPoints[(startIdx + endIdx) / 2]
+                val midIdx = (startIdx + endIdx) / 2
+                val midGeo = geoPoints[midIdx]
 
                 // Distance for this segment (metres)
                 var segDistM = 0.0
                 for (i in startIdx until endIdx) {
                     val a = pts[i]; val b = pts[i + 1]
-                    val loc = android.location.Location("").apply { latitude = a.latitude; longitude = a.longitude }
-                    val loc2 = android.location.Location("").apply { latitude = b.latitude; longitude = b.longitude }
+                    val loc = Location("").apply { latitude = a.latitude; longitude = a.longitude }
+                    val loc2 = Location("").apply { latitude = b.latitude; longitude = b.longitude }
                     segDistM += loc.distanceTo(loc2)
                 }
 
                 // Duration for this segment
-                val segDurationMs = segPts.last().timestampMs - segPts.first().timestampMs
+                val segDurationMs = maxOf(1L, segPts.last().timestampMs - segPts.first().timestampMs)
                 val segDurationSec = segDurationMs / 1000.0
 
                 // Pace (sec/km)
-                val segPaceSec: Long = if (segDistM > 0)
-                    ((segDurationSec / (segDistM / 1000.0))).toLong()
-                else 0L
+                val segPaceSec: Long = if (segDistM > 5.0) {
+                    (segDurationSec / (segDistM / 1000.0)).toLong()
+                } else 0L
 
                 // Steps (estimated proportionally from lap total)
                 val lapTotalSteps = laps.find { it.id == lap.id }?.steps ?: 0L
@@ -281,8 +308,9 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
                 val segStepsEst = if (lapTotalPts > 0) (lapTotalSteps * segPts.size / lapTotalPts) else 0L
 
                 val segDistKm = segDistM / 1000.0
-                val paceStr = if (segPaceSec > 0)
-                    "${segPaceSec / 60}:${"%02d".format(segPaceSec % 60)} /km" else "-- /km"
+                val paceStr = if (segPaceSec > 0) {
+                    "${segPaceSec / 60}:${String.format(Locale.getDefault(), "%02d", segPaceSec % 60)} /km"
+                } else "-- /km"
 
                 val marker = Marker(map).apply {
                     id = "seg_${lap.id}_$seg"
@@ -290,33 +318,29 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
                     setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
                     icon = ContextCompat.getDrawable(requireContext(), R.drawable.circle_shape)
                         ?.mutate()?.also { d ->
-                            (d as? android.graphics.drawable.GradientDrawable)?.setColor(
-                                Color.argb(180, Color.red(color), Color.green(color), Color.blue(color))
-                            )
+                            (d as? android.graphics.drawable.GradientDrawable)?.setColor(color)
                         }
-                    title = "Lap ${lap.lapNumber} · Seg ${seg + 1}"
+                    title = "Lap ${lap.lapNumber} · Part ${seg + 1}"
                     snippet = buildString {
-                        append("📍 ${String.format("%.2f", segDistKm)} km\n")
-                        append("⏱ $paceStr\n")
-                        append("👟 ~$segStepsEst steps")
+                        append("Distance: ${String.format(Locale.getDefault(), "%.2f", segDistKm)} km\n")
+                        append("Pace: $paceStr\n")
+                        append("Steps: ~$segStepsEst")
                     }
-                    // Colour-tinted info window handled by default OSMDroid window
                 }
                 map.overlays.add(marker)
-                lastPoint = geoPoints.last()
             }
         }
 
-        // Pan + zoom to latest position and update user navigation triangle marker
-        lastPoint?.let { currentGeo ->
+        // Update latest position & car navigation arrow marker
+        latestGeoPoint?.let { currentGeo ->
             mapView?.controller?.animateTo(currentGeo)
 
-            // Switch to 2D standard OSM map if user is outside the 10km corridor / 5km college-home circles
-            val inZone = com.shame.tracker.util.SatelliteZone.contains(currentGeo.latitude, currentGeo.longitude)
+            // Switch to 2D standard OSM map if outside the 10km corridor / 5km college-home circles
+            val inZone = SatelliteZone.contains(currentGeo.latitude, currentGeo.longitude)
             val currentTileSource = mapView?.tileProvider?.tileSource
             if (inZone) {
                 if (currentTileSource?.name() != "ESRIWorldImagery") {
-                    mapView?.setTileSource(com.shame.tracker.service.EsriSatTileSource())
+                    mapView?.setTileSource(EsriSatTileSource())
                 }
             } else {
                 if (currentTileSource?.name() != TileSourceFactory.MAPNIK.name()) {
@@ -324,14 +348,13 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
                 }
             }
 
-            // Calculate bearing/heading if previous point exists
             var bearing = 0f
             if (previousGeoPoint != null) {
-                val prevLoc = android.location.Location("").apply {
+                val prevLoc = Location("").apply {
                     latitude = previousGeoPoint!!.latitude
                     longitude = previousGeoPoint!!.longitude
                 }
-                val curLoc = android.location.Location("").apply {
+                val curLoc = Location("").apply {
                     latitude = currentGeo.latitude
                     longitude = currentGeo.longitude
                 }
@@ -343,22 +366,27 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
                 }
             }
 
-            // Update navigation arrow marker
-            if (userNavMarker == null) {
-                userNavMarker = Marker(map).apply {
-                    id = "user_nav_marker"
-                    setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_nav_arrow)
-                    title = "You"
-                    infoWindow = null
-                }
-                map.overlays.add(userNavMarker)
-            }
-            userNavMarker?.position = currentGeo
-            userNavMarker?.rotation = bearing
+            updateUserNavMarker(currentGeo, bearing)
             previousGeoPoint = currentGeo
         }
 
+        map.invalidate()
+    }
+
+    private fun updateUserNavMarker(geo: GeoPoint, bearing: Float) {
+        val map = mapView ?: return
+        if (userNavMarker == null) {
+            userNavMarker = Marker(map).apply {
+                id = "user_nav_marker"
+                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_nav_arrow)
+                title = "Your Location"
+                infoWindow = null
+            }
+            map.overlays.add(userNavMarker)
+        }
+        userNavMarker?.position = geo
+        userNavMarker?.rotation = bearing
         map.invalidate()
     }
 
@@ -386,6 +414,6 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
 
     companion object {
         /** Number of GPS points per clickable segment on the map */
-        private const val SEGMENT_SIZE = 5
+        private const val SEGMENT_SIZE = 4
     }
 }

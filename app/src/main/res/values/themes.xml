@@ -9,9 +9,9 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/on_surface</item>
-        <item name="android:windowBackground">@drawable/bg_dark_canvas</item>
-        <item name="android:statusBarColor">#0D1527</item>
-        <item name="android:navigationBarColor">#05070D</item>
+        <item name="android:windowBackground">@drawable/bg_light_canvas</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:textColorSecondary">@color/on_surface_medium</item>
     </style>

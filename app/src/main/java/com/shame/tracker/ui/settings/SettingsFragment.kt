@@ -19,7 +19,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.setBackgroundResource(R.drawable.bg_dark_canvas)
+        // Background comes from the theme (bg_light_canvas or bg_dark_canvas)
         listView.apply {
             setPadding(24, 24, 24, 36)
             clipToPadding = false
