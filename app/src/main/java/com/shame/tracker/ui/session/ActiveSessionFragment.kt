@@ -241,6 +241,7 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
         }
 
         var latestGeoPoint: GeoPoint? = null
+        val existingMarkerPositions = mutableListOf<GeoPoint>()
 
         for (lap in laps) {
             val pts = pointsMap[lap.id] ?: continue
@@ -271,63 +272,80 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
                     .filter { it.id?.startsWith("seg_${lap.id}_") == true }
             )
 
-            // ── Segment markers: partition lap route into visible chunks ─────
-            val segSize = SEGMENT_SIZE
-            val numSegments = maxOf(1, (pts.size + segSize - 1) / segSize)
+            // ── Segment markers: partition lap route into distance chunks of at least 250m ─────
+            val minSegmentMeters = 250.0
+            val minMarkerSeparationMeters = 25.0
 
-            for (seg in 0 until numSegments) {
-                val startIdx = seg * segSize
-                val endIdx = minOf(startIdx + segSize, pts.size - 1)
-                if (startIdx > endIdx || startIdx >= pts.size) continue
+            var segStartIndex = 0
+            var accumulatedDistance = 0.0
+            var segmentNumber = 1
 
-                val segPts = pts.subList(startIdx, endIdx + 1)
-                val midIdx = (startIdx + endIdx) / 2
-                val midGeo = geoPoints[midIdx]
+            for (i in 0 until pts.size - 1) {
+                val a = pts[i]
+                val b = pts[i + 1]
+                val locA = Location("").apply { latitude = a.latitude; longitude = a.longitude }
+                val locB = Location("").apply { latitude = b.latitude; longitude = b.longitude }
+                accumulatedDistance += locA.distanceTo(locB)
 
-                // Distance for this segment (metres)
-                var segDistM = 0.0
-                for (i in startIdx until endIdx) {
-                    val a = pts[i]; val b = pts[i + 1]
-                    val loc = Location("").apply { latitude = a.latitude; longitude = a.longitude }
-                    val loc2 = Location("").apply { latitude = b.latitude; longitude = b.longitude }
-                    segDistM += loc.distanceTo(loc2)
-                }
+                val isLastPoint = (i == pts.size - 2)
+                if (accumulatedDistance >= minSegmentMeters || (isLastPoint && accumulatedDistance >= 100.0 && segmentNumber == 1)) {
+                    val segPts = pts.subList(segStartIndex, i + 2)
+                    val midIdx = (segStartIndex + i + 1) / 2
+                    val rawMidGeo = geoPoints[midIdx]
 
-                // Duration for this segment
-                val segDurationMs = maxOf(1L, segPts.last().timestampMs - segPts.first().timestampMs)
-                val segDurationSec = segDurationMs / 1000.0
-
-                // Pace (sec/km)
-                val segPaceSec: Long = if (segDistM > 5.0) {
-                    (segDurationSec / (segDistM / 1000.0)).toLong()
-                } else 0L
-
-                // Steps (estimated proportionally from lap total)
-                val lapTotalSteps = laps.find { it.id == lap.id }?.steps ?: 0L
-                val lapTotalPts = pts.size
-                val segStepsEst = if (lapTotalPts > 0) (lapTotalSteps * segPts.size / lapTotalPts) else 0L
-
-                val segDistKm = segDistM / 1000.0
-                val paceStr = if (segPaceSec > 0) {
-                    "${segPaceSec / 60}:${String.format(Locale.getDefault(), "%02d", segPaceSec % 60)} /km"
-                } else "-- /km"
-
-                val marker = Marker(map).apply {
-                    id = "seg_${lap.id}_$seg"
-                    position = midGeo
-                    setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.circle_shape)
-                        ?.mutate()?.also { d ->
-                            (d as? android.graphics.drawable.GradientDrawable)?.setColor(color)
-                        }
-                    title = "Lap ${lap.lapNumber} · Part ${seg + 1}"
-                    snippet = buildString {
-                        append("Distance: ${String.format(Locale.getDefault(), "%.2f", segDistKm)} km\n")
-                        append("Pace: $paceStr\n")
-                        append("Steps: ~$segStepsEst")
+                    // Prevent overlapping markers across all laps / segments
+                    var finalMidGeo = rawMidGeo
+                    val tooClose = existingMarkerPositions.any { existing ->
+                        val loc1 = Location("").apply { latitude = existing.latitude; longitude = existing.longitude }
+                        val loc2 = Location("").apply { latitude = finalMidGeo.latitude; longitude = finalMidGeo.longitude }
+                        loc1.distanceTo(loc2) < minMarkerSeparationMeters
                     }
+
+                    if (tooClose) {
+                        // Offset slightly (perpendicular / along latitude by ~35m) so markers don't overlap
+                        finalMidGeo = GeoPoint(
+                            rawMidGeo.latitude + 0.0003 * (if (segmentNumber % 2 == 0) 1 else -1),
+                            rawMidGeo.longitude + 0.0003 * (if (lap.lapNumber % 2 == 0) 1 else -1)
+                        )
+                    }
+                    existingMarkerPositions.add(finalMidGeo)
+
+                    val segDurationMs = maxOf(1L, segPts.last().timestampMs - segPts.first().timestampMs)
+                    val segDurationSec = segDurationMs / 1000.0
+                    val segPaceSec: Long = if (accumulatedDistance > 5.0) {
+                        (segDurationSec / (accumulatedDistance / 1000.0)).toLong()
+                    } else 0L
+
+                    val lapTotalSteps = laps.find { it.id == lap.id }?.steps ?: 0L
+                    val lapTotalPts = pts.size
+                    val segStepsEst = if (lapTotalPts > 0) (lapTotalSteps * segPts.size / lapTotalPts) else 0L
+
+                    val segDistKm = accumulatedDistance / 1000.0
+                    val paceStr = if (segPaceSec > 0) {
+                        "${segPaceSec / 60}:${String.format(Locale.getDefault(), "%02d", segPaceSec % 60)} /km"
+                    } else "-- /km"
+
+                    val marker = Marker(map).apply {
+                        id = "seg_${lap.id}_$segmentNumber"
+                        position = finalMidGeo
+                        setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+                        icon = ContextCompat.getDrawable(requireContext(), R.drawable.circle_shape)
+                            ?.mutate()?.also { d ->
+                                (d as? android.graphics.drawable.GradientDrawable)?.setColor(color)
+                            }
+                        title = "Lap ${lap.lapNumber} · Part $segmentNumber"
+                        snippet = buildString {
+                            append("Distance: ${String.format(Locale.getDefault(), "%.2f", segDistKm)} km\n")
+                            append("Pace: $paceStr\n")
+                            append("Steps: ~$segStepsEst")
+                        }
+                    }
+                    map.overlays.add(marker)
+
+                    segStartIndex = i + 1
+                    accumulatedDistance = 0.0
+                    segmentNumber++
                 }
-                map.overlays.add(marker)
             }
         }
 
