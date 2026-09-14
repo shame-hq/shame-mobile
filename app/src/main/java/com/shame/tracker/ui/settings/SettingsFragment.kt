@@ -1,6 +1,7 @@
 package com.shame.tracker.ui.settings
 
 import android.os.Bundle
+import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.shame.tracker.R
@@ -13,6 +14,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<ListPreference>("dark_mode")?.setOnPreferenceChangeListener { _, newValue ->
             ShameTrackerApp.applyDarkMode(newValue as String)
             true
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.setBackgroundResource(R.drawable.bg_dark_canvas)
+        listView.apply {
+            setPadding(24, 24, 24, 36)
+            clipToPadding = false
         }
     }
 }

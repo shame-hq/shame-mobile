@@ -2,134 +2,331 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@drawable/bg_dark_canvas">
 
-    <TextView
-        android:id="@+id/tvLap"
-        android:layout_width="wrap_content"
+    <!-- ── Top Section: Live Metrics Glass Dashboard ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/topSection"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lap 1"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/accent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/glass_card_surface"
+        app:strokeColor="@color/glass_border"
+        app:strokeWidth="1.5dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textSize="72sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvLap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSessionTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total Time: 00:00"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tvTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/statsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSessionTime">
-        
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/distance"/>
-            <TextView
-                android:id="@+id/tvDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.00 km"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pace"/>
-            <TextView
-                android:id="@+id/tvPace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.00 min/km"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-    </LinearLayout>
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="14dp"
+            android:gravity="center_horizontal">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLaps"
+            <!-- Lap & Status Indicator Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <!-- Current Lap Pill -->
+                <TextView
+                    android:id="@+id/tvLap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lap 1"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/accent"
+                    android:background="@drawable/bg_glass_chip"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Total Session Time Chip -->
+                <TextView
+                    android:id="@+id/tvSessionTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total 00:00"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_surface_medium"
+                    android:background="@drawable/bg_glass_chip"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp" />
+            </LinearLayout>
+
+            <!-- Hero Lap Timer -->
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="64sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:includeFontPadding="false"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="6dp" />
+
+            <!-- Live Stats Row: Distance & Pace -->
+            <LinearLayout
+                android:id="@+id/statsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:weightSum="2"
+                android:background="@drawable/bg_glass_chip"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="12dp">
+
+                <!-- Distance Column -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/distance"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.08"
+                        android:textColor="@color/on_surface_medium" />
+
+                    <TextView
+                        android:id="@+id/tvDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.00 km"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/glass_border" />
+
+                <!-- Pace Column -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pace"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.08"
+                        android:textColor="@color/on_surface_medium" />
+
+                    <TextView
+                        android:id="@+id/tvPace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0:00 /km"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ── Live Map in Rounded Glass Frame ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardMapFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/statsLayout"
-        app:layout_constraintBottom_toTopOf="@id/buttonsLayout" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/glass_border"
+        app:strokeWidth="1.5dp"
+        app:cardBackgroundColor="#0F172A"
+        app:layout_constraintTop_toBottomOf="@id/topSection"
+        app:layout_constraintBottom_toTopOf="@id/cardLapsContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ── Lap Splits Glass Container ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLapsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/glass_card_surface"
+        app:strokeColor="@color/glass_border"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Lap List Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="LAP SPLITS"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:textColor="@color/on_surface_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DIST · TIME · PACE"
+                    android:textSize="9sp"
+                    android:textColor="@color/on_surface_muted"
+                    android:letterSpacing="0.05" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLaps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="6dp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ── Bottom Action Dock: End Session, Pause, End Lap ── -->
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
+        <!-- End Session (Destructive) -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEndSession"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/end_session"
-            android:backgroundTint="@color/error"/>
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#FCA5A5"
+            app:cornerRadius="18dp"
+            app:backgroundTint="@color/error_glass"
+            app:strokeColor="#80EF4444"
+            app:strokeWidth="1.5dp"
+            app:icon="@drawable/ic_stop"
+            app:iconTint="#EF4444"
+            app:iconSize="18dp"
+            app:iconGravity="textStart"
+            app:rippleColor="#4DEF4444"
+            android:insetTop="0dp"
+            android:insetBottom="0dp" />
 
-        <Button
+        <!-- Pause / Resume -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPause"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/pause_session"
-            android:backgroundTint="@color/warning"/>
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#FDE68A"
+            app:cornerRadius="18dp"
+            app:backgroundTint="@color/warning_glass"
+            app:strokeColor="#80F59E0B"
+            app:strokeWidth="1.5dp"
+            app:icon="@drawable/ic_pause"
+            app:iconTint="#F59E0B"
+            app:iconSize="18dp"
+            app:iconGravity="textStart"
+            app:rippleColor="#4DF59E0B"
+            android:insetTop="0dp"
+            android:insetBottom="0dp" />
 
-        <Button
+        <!-- End Lap (Primary Action) -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEndLap"
             android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="1"
+            android:layout_height="56dp"
+            android:layout_weight="1.3"
             android:text="@string/end_lap"
-            android:backgroundTint="@color/accent"
-            app:cornerRadius="16dp"/>
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="18dp"
+            android:background="@drawable/bg_button_primary_accent"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_flag"
+            app:iconTint="#FFFFFF"
+            app:iconSize="18dp"
+            app:iconGravity="textStart"
+            app:rippleColor="#4DFFFFFF"
+            android:elevation="4dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

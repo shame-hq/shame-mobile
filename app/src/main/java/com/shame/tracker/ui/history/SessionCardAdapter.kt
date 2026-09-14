@@ -37,16 +37,16 @@ class SessionCardAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val session = getItem(position)
         holder.currentSession = session
-        
-        val sdf = SimpleDateFormat("MMM dd, yyyy - HH:mm", Locale.getDefault())
+
+        val sdf = SimpleDateFormat("MMM dd, yyyy · HH:mm", Locale.getDefault())
         holder.tvDate.text = sdf.format(Date(session.startTimeMs))
         holder.tvLaps.text = "${session.totalLaps} Laps"
-        holder.tvDistance.text = String.format(Locale.getDefault(), "Distance: %.2f km", session.totalDistanceMeters / 1000.0)
-        
+        holder.tvDistance.text = String.format(Locale.getDefault(), "%.2f km", session.totalDistanceMeters / 1000.0)
+
         val totalSecs = session.totalDurationMs / 1000
         val m = totalSecs / 60
         val s = totalSecs % 60
-        holder.tvDuration.text = String.format(Locale.getDefault(), "Time: %02d:%02d", m, s)
+        holder.tvDuration.text = String.format(Locale.getDefault(), "%02d:%02d", m, s)
     }
 }
 

@@ -1,108 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@drawable/bg_home_atmosphere"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/tvAppTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardLastRun"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAppTitle">
-        
+        android:paddingHorizontal="20dp"
+        android:paddingTop="36dp"
+        android:paddingBottom="36dp">
+
+        <!-- ── Top Header & Greeting ── -->
         <LinearLayout
+            android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
-            
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_glass_chip_accent"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_directions_run"
+                    app:tint="@color/accent"
+                    android:layout_marginEnd="6dp"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/tvAppTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/accent_light"
+                    android:letterSpacing="0.08" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ready for a run?"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                android:includeFontPadding="false" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/last_run"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-                
-            <TextView
-                android:id="@+id/tvLastRunInfo"
+                android:text="Track route, live laps, and break personal bests."
+                android:textSize="14sp"
+                android:textColor="@color/on_surface_medium"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- ── Hero Start Run Action ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardStartHero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:cardCornerRadius="26dp"
+            app:cardElevation="8dp"
+            app:strokeColor="#50F97316"
+            app:strokeWidth="1.5dp"
+            app:cardBackgroundColor="@color/glass_card_surface"
+            app:layout_constraintTop_toBottomOf="@id/headerLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/no_recent_run"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <Button
-        android:id="@+id/btnStartSession"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:text="@string/start_session"
-        android:textSize="20sp"
-        android:backgroundTint="@color/accent"
-        app:layout_constraintTop_toBottomOf="@id/cardLastRun"
-        android:layout_marginTop="48dp"
-        app:cornerRadius="32dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:columnCount="2"
-        android:rowCount="2"
-        app:layout_constraintTop_toBottomOf="@id/btnStartSession">
-        
-        <Button
-            android:id="@+id/btnHistory"
-            android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SESSION CONTROL"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.08"
+                            android:textColor="@color/accent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Live GPS &amp; Lap Tracking"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/on_surface"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_speed"
+                        app:tint="@color/accent_light"
+                        android:background="@drawable/bg_glass_chip_accent"
+                        android:padding="8dp"
+                        android:contentDescription="@null" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnStartSession"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="@string/start_session"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.03"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_button_primary_accent"
+                    app:backgroundTint="@null"
+                    android:elevation="6dp"
+                    android:gravity="center"
+                    android:drawableStart="@drawable/ic_play_arrow"
+                    android:drawableTint="#FFFFFF"
+                    android:paddingHorizontal="24dp"
+                    android:drawablePadding="10dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ── Recent Run Dashboard Card ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardLastRun"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:text="@string/history"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-            
-        <Button
-            android:id="@+id/btnCharts"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:text="@string/charts"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+            android:layout_marginTop="22dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/glass_card_surface"
+            app:strokeColor="@color/glass_border"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/cardStartHero"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/btnBests"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:text="@string/personal_bests"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
 
-        <Button
-            android:id="@+id/btnSettings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:text="@string/settings"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-    </GridLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_history"
+                        app:tint="@color/accent"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/last_run"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.06"
+                        android:textColor="@color/on_surface_medium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RECENT"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/accent_light"
+                        android:background="@drawable/bg_glass_chip_accent"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLastRunInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_recent_run"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_surface"
+                    android:lineSpacingExtra="3dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ── Navigation Tiles Section ── -->
+        <TextView
+            android:id="@+id/tvExploreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="DASHBOARD"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:textColor="@color/on_surface_medium"
+            app:layout_constraintTop_toBottomOf="@id/cardLastRun"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <GridLayout
+            android:id="@+id/gridNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            app:layout_constraintTop_toBottomOf="@id/tvExploreTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- History Tile -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHistory"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/history"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                app:icon="@drawable/ic_history"
+                app:iconSize="24dp"
+                app:iconGravity="top"
+                app:iconTint="@color/blue_accent"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/glass_card_surface"
+                app:strokeColor="@color/glass_border"
+                app:strokeWidth="1.5dp"
+                app:rippleColor="#33FFFFFF"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+
+            <!-- Charts Tile -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCharts"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/charts"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                app:icon="@drawable/ic_bar_chart"
+                app:iconSize="24dp"
+                app:iconGravity="top"
+                app:iconTint="@color/cyan_accent"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/glass_card_surface"
+                app:strokeColor="@color/glass_border"
+                app:strokeWidth="1.5dp"
+                app:rippleColor="#33FFFFFF"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+
+            <!-- Personal Bests Tile -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBests"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_marginEnd="6dp"
+                android:text="@string/personal_bests"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                app:icon="@drawable/ic_workspace_premium"
+                app:iconSize="24dp"
+                app:iconGravity="top"
+                app:iconTint="@color/accent_light"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/glass_card_surface"
+                app:strokeColor="@color/glass_border"
+                app:strokeWidth="1.5dp"
+                app:rippleColor="#33FFFFFF"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+
+            <!-- Settings Tile -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSettings"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="6dp"
+                android:text="@string/settings"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                app:icon="@drawable/ic_settings"
+                app:iconSize="24dp"
+                app:iconGravity="top"
+                app:iconTint="@color/on_surface_medium"
+                app:cornerRadius="20dp"
+                app:backgroundTint="@color/glass_card_surface"
+                app:strokeColor="@color/glass_border"
+                app:strokeWidth="1.5dp"
+                app:rippleColor="#33FFFFFF"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+        </GridLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

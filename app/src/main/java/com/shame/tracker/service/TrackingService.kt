@@ -51,6 +51,10 @@ class TrackingService : Service(), LocationListener, SensorEventListener {
         private val _laps = MutableStateFlow<List<Lap>>(emptyList())
         val laps: StateFlow<List<Lap>> = _laps.asStateFlow()
 
+        /** Live GPS points for the active session, keyed by lapId → list of points */
+        private val _gpsPoints = MutableStateFlow<Map<Long, List<GpsPoint>>>(emptyMap())
+        val gpsPoints: StateFlow<Map<Long, List<GpsPoint>>> = _gpsPoints.asStateFlow()
+
         const val ACTION_START = "ACTION_START"
         const val ACTION_PAUSE = "ACTION_PAUSE"
         const val ACTION_STOP = "ACTION_STOP"
@@ -259,6 +263,15 @@ class TrackingService : Service(), LocationListener, SensorEventListener {
         _laps.value = repository.getLaps(activeSessionId)
     }
 
+    private suspend fun refreshGpsPoints() {
+        val allLaps = repository.getLaps(activeSessionId)
+        val map = mutableMapOf<Long, List<GpsPoint>>()
+        for (lap in allLaps) {
+            map[lap.id] = repository.getGpsPointsForLap(lap.id)
+        }
+        _gpsPoints.value = map
+    }
+
     override fun onLocationChanged(location: Location) {
         if (!_trackingState.value.isRunning || _trackingState.value.isPaused) return
         serviceScope.launch {
@@ -281,6 +294,7 @@ class TrackingService : Service(), LocationListener, SensorEventListener {
                 }
             }
             lastLocation = location
+            refreshGpsPoints()
         }
     }
 

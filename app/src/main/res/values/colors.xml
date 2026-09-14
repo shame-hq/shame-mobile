@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary brand colour — clean slate blue -->
-    <color name="primary">#1E3A5F</color>
-    <color name="primary_variant">#16304F</color>
+    <!-- Primary brand colour — dark futuristic obsidian -->
+    <color name="primary">#0F172A</color>
+    <color name="primary_variant">#080C14</color>
     <color name="on_primary">#FFFFFF</color>
 
-    <!-- Surface & background -->
-    <color name="background">#F8F9FA</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="on_surface">#1A1A2E</color>
-    <color name="on_surface_medium">#6B7280</color>
+    <!-- Canvas & background — dark-first glassmorphism -->
+    <color name="background">#080C14</color>
+    <color name="surface">#111827</color>
+    <color name="surface_variant">#1E293B</color>
+    <color name="on_surface">#FFFFFF</color>
+    <color name="on_surface_medium">#94A3B8</color>
+    <color name="on_surface_muted">#64748B</color>
 
-    <!-- Accent: running orange for active states -->
+    <!-- Accent: running orange for active states and route progress -->
     <color name="accent">#F97316</color>
-    <color name="accent_light">#FED7AA</color>
+    <color name="accent_light">#FB923C</color>
+    <color name="accent_dark">#EA580C</color>
+    <color name="accent_glow">#40F97316</color>
+    <color name="accent_glass">#2DF97316</color>
+
+    <!-- Glassmorphism palette -->
+    <color name="glass_card_bg">#18FFFFFF</color>
+    <color name="glass_card_bg_prominent">#24FFFFFF</color>
+    <color name="glass_card_bg_subtle">#0DFFFFFF</color>
+    <color name="glass_card_surface">#E6111827</color>
+    <color name="glass_card_surface_elevated">#F0162238</color>
+    <color name="glass_card_surface_subtle">#B30F172A</color>
+    <color name="glass_border">#2EFFFFFF</color>
+    <color name="glass_border_subtle">#1AFFFFFF</color>
+    <color name="glass_border_prominent">#47FFFFFF</color>
+    <color name="glass_border_accent">#80F97316</color>
+    <color name="glass_border_cyan">#6606B6D4</color>
+    <color name="glass_border_purple">#66A855F7</color>
+
+    <!-- Secondary Accents -->
+    <color name="cyan_accent">#06B6D4</color>
+    <color name="cyan_glass">#2006B6D4</color>
+    <color name="blue_accent">#38BDF8</color>
+    <color name="blue_glass">#2038BDF8</color>
+    <color name="purple_accent">#A855F7</color>
+    <color name="purple_glass">#20A855F7</color>
+    <color name="emerald_accent">#10B981</color>
+    <color name="emerald_glass">#2010B981</color>
+    <color name="rose_accent">#F43F5E</color>
+    <color name="rose_glass">#20F43F5E</color>
 
     <!-- Lap colours — used for map overlays, cycling per lap -->
     <color name="lap_1">#3B82F6</color>
@@ -26,10 +57,12 @@
     <!-- Status colours -->
     <color name="success">#10B981</color>
     <color name="warning">#F59E0B</color>
+    <color name="warning_glass">#33F59E0B</color>
     <color name="error">#EF4444</color>
+    <color name="error_glass">#33EF4444</color>
 
     <!-- Dark theme equivalents -->
-    <color name="dark_background">#0F172A</color>
-    <color name="dark_surface">#1E293B</color>
-    <color name="dark_on_surface">#F1F5F9</color>
+    <color name="dark_background">#080C14</color>
+    <color name="dark_surface">#111827</color>
+    <color name="dark_on_surface">#FFFFFF</color>
 </resources>

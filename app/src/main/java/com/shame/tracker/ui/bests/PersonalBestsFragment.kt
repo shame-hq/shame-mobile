@@ -28,14 +28,18 @@ class PersonalBestsFragment : Fragment(R.layout.fragment_personal_bests) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             val longestDist = repository.getLongestDistanceSession()
-            if (longestDist != null)
+            if (longestDist != null && longestDist.totalDistanceMeters > 0) {
                 tvDistance.text = String.format(Locale.getDefault(), "%.2f km", longestDist.totalDistanceMeters / 1000.0)
-            else tvDistance.text = "No data yet"
+            } else {
+                tvDistance.text = "-- km"
+            }
 
             val mostLaps = repository.getMostLapsSession()
-            if (mostLaps != null)
+            if (mostLaps != null && mostLaps.totalLaps > 0) {
                 tvLaps.text = "${mostLaps.totalLaps} laps"
-            else tvLaps.text = "No data yet"
+            } else {
+                tvLaps.text = "-- laps"
+            }
 
             val bestPace = repository.getBestPaceSession()
             if (bestPace != null && bestPace.totalDistanceMeters > 0) {
@@ -43,7 +47,9 @@ class PersonalBestsFragment : Fragment(R.layout.fragment_personal_bests) {
                 val m = paceMin.toInt()
                 val s = ((paceMin - m) * 60).toInt()
                 tvPace.text = String.format(Locale.getDefault(), "%d:%02d /km", m, s)
-            } else tvPace.text = "No data yet"
+            } else {
+                tvPace.text = "-- /km"
+            }
 
             val count = repository.getCompletedSessionCount()
             tvTotal.text = "$count runs"

@@ -58,6 +58,10 @@
             android:foregroundServiceType="location"
             android:exported="false" />
 
+        <service
+            android:name=".service.SatelliteTileDownloadService"
+            android:exported="false" />
+
         <!-- File provider for APK updates (kept from old app) -->
         <provider
             android:name="androidx.core.content.FileProvider"

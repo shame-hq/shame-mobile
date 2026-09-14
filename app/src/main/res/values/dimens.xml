@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screen paddings -->
+    <dimen name="screen_padding_horizontal">20dp</dimen>
+    <dimen name="screen_padding_vertical">24dp</dimen>
+
+    <!-- Glass card corner radii -->
+    <dimen name="glass_radius_small">14dp</dimen>
+    <dimen name="glass_radius_medium">20dp</dimen>
+    <dimen name="glass_radius_large">24dp</dimen>
+    <dimen name="glass_radius_xlarge">32dp</dimen>
+    <dimen name="glass_radius_pill">100dp</dimen>
+
+    <!-- Glass stroke widths -->
+    <dimen name="glass_stroke_thin">1dp</dimen>
+    <dimen name="glass_stroke_medium">1.5dp</dimen>
+    <dimen name="glass_stroke_thick">2dp</dimen>
+
+    <!-- Glass card paddings -->
+    <dimen name="glass_padding_small">12dp</dimen>
+    <dimen name="glass_padding_medium">16dp</dimen>
+    <dimen name="glass_padding_large">20dp</dimen>
+    <dimen name="glass_padding_xlarge">24dp</dimen>
+
+    <!-- Typography sizes -->
+    <dimen name="text_hero_metric">64sp</dimen>
+    <dimen name="text_large_metric">32sp</dimen>
+    <dimen name="text_medium_metric">24sp</dimen>
+    <dimen name="text_title">22sp</dimen>
+    <dimen name="text_subtitle">14sp</dimen>
+    <dimen name="text_label">11sp</dimen>
+</resources>

@@ -31,6 +31,9 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
 
         val barDistance = view.findViewById<BarChart>(R.id.barChartDistance)
         val barLaps = view.findViewById<BarChart>(R.id.barChartLaps)
+        val layoutEmpty = view.findViewById<View?>(R.id.layoutEmptyCharts)
+        val cardDistance = view.findViewById<View?>(R.id.cardDistanceChart)
+        val cardLaps = view.findViewById<View?>(R.id.cardLapsChart)
 
         viewLifecycleOwner.lifecycleScope.launch {
             val sessions = repository.getAllSessionsForExport()
@@ -38,11 +41,20 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
                 .takeLast(10)
 
             if (sessions.isEmpty()) {
+                layoutEmpty?.visibility = View.VISIBLE
+                cardDistance?.visibility = View.GONE
+                cardLaps?.visibility = View.GONE
                 barDistance.setNoDataText("Complete a run to see charts!")
                 barLaps.setNoDataText("Complete a run to see charts!")
+                barDistance.setNoDataTextColor(Color.parseColor("#94A3B8"))
+                barLaps.setNoDataTextColor(Color.parseColor("#94A3B8"))
                 barDistance.invalidate()
                 barLaps.invalidate()
                 return@launch
+            } else {
+                layoutEmpty?.visibility = View.GONE
+                cardDistance?.visibility = View.VISIBLE
+                cardLaps?.visibility = View.VISIBLE
             }
 
             val sdf = SimpleDateFormat("MM/dd", Locale.getDefault())
@@ -54,11 +66,11 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
             }
             val distSet = BarDataSet(distEntries, "km").apply {
                 color = Color.parseColor("#F97316")
-                valueTextColor = Color.GRAY
-                valueTextSize = 10f
+                valueTextColor = Color.WHITE
+                valueTextSize = 11f
             }
             styleChart(barDistance, labels)
-            barDistance.data = BarData(distSet).apply { barWidth = 0.7f }
+            barDistance.data = BarData(distSet).apply { barWidth = 0.65f }
             barDistance.invalidate()
 
             // Laps chart
@@ -66,33 +78,42 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
                 BarEntry(i.toFloat(), s.totalLaps.toFloat())
             }
             val lapSet = BarDataSet(lapEntries, "laps").apply {
-                color = Color.parseColor("#1E3A5F")
-                valueTextColor = Color.GRAY
-                valueTextSize = 10f
+                color = Color.parseColor("#06B6D4")
+                valueTextColor = Color.WHITE
+                valueTextSize = 11f
             }
             styleChart(barLaps, labels)
-            barLaps.data = BarData(lapSet).apply { barWidth = 0.7f }
+            barLaps.data = BarData(lapSet).apply { barWidth = 0.65f }
             barLaps.invalidate()
         }
     }
 
     private fun styleChart(chart: BarChart, labels: List<String>) {
         chart.apply {
+            setBackgroundColor(Color.TRANSPARENT)
             description.isEnabled = false
             legend.isEnabled = false
             setDrawGridBackground(false)
             setDrawBorders(false)
+            setFitBars(true)
             axisRight.isEnabled = false
             axisLeft.apply {
-                setDrawGridLines(false)
+                setDrawGridLines(true)
+                gridColor = Color.parseColor("#1FFFFFFF")
+                setDrawAxisLine(false)
+                textColor = Color.parseColor("#94A3B8")
+                textSize = 10f
                 axisMinimum = 0f
             }
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 setDrawGridLines(false)
+                setDrawAxisLine(false)
+                textColor = Color.parseColor("#94A3B8")
+                textSize = 10f
                 granularity = 1f
                 valueFormatter = IndexAxisValueFormatter(labels)
-                labelRotationAngle = -45f
+                labelRotationAngle = -35f
             }
             animateY(600)
         }

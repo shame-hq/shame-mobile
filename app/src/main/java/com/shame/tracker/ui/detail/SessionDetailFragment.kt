@@ -80,18 +80,24 @@ class SessionDetailFragment : Fragment(R.layout.fragment_session_detail) {
 
         val tvStats  = view.findViewById<TextView>(R.id.tvDetailStats)
         val tvTitle  = view.findViewById<TextView>(R.id.tvDetailTitle)
+        val tvDistance = view.findViewById<TextView?>(R.id.tvDetailDistance)
+        val tvDuration = view.findViewById<TextView?>(R.id.tvDetailDuration)
+        val tvLaps = view.findViewById<TextView?>(R.id.tvDetailLaps)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.session.collect { session ->
                         if (session != null) {
-                            val sdf = SimpleDateFormat("MMM dd, yyyy - HH:mm", Locale.getDefault())
+                            val sdf = SimpleDateFormat("MMM dd, yyyy · HH:mm", Locale.getDefault())
                             tvTitle.text = sdf.format(Date(session.startTimeMs))
                             val sec     = session.totalDurationMs / 1000
                             val timeStr = String.format(Locale.getDefault(), "%02d:%02d", sec / 60, sec % 60)
                             val distStr = String.format(Locale.getDefault(), "%.2f km", session.totalDistanceMeters / 1000.0)
                             tvStats.text = "Distance: $distStr\nTime: $timeStr\nLaps: ${session.totalLaps}"
+                            tvDistance?.text = distStr
+                            tvDuration?.text = timeStr
+                            tvLaps?.text = "${session.totalLaps}"
                         }
                     }
                 }

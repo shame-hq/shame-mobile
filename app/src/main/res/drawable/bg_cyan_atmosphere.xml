@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base dark obsidian canvas -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="315"
+                android:startColor="#0D1527"
+                android:centerColor="#090E1A"
+                android:endColor="#05070D" />
+        </shape>
+    </item>
+    <!-- Subtle cool cyan atmospheric glow -->
+    <item
+        android:top="-100dp"
+        android:left="40dp"
+        android:right="40dp"
+        android:bottom="380dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="260dp"
+                android:startColor="#2006B6D4"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+</layer-list>
