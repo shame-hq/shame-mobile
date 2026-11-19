@@ -1,80 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base theme with Apple-style defaults -->
     <style name="Theme.ShameTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Color palette -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_variant</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorSecondary">@color/accent</item>
         <item name="colorSecondaryVariant">@color/accent_light</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">#FFFFFF</item>
+        
+        <!-- Backgrounds -->
         <item name="android:colorBackground">@color/background</item>
         <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
         <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_medium</item>
+        
+        <!-- Window -->
         <item name="android:windowBackground">@drawable/bg_light_canvas</item>
-        <item name="android:statusBarColor">@color/primary</item>
-        <item name="android:navigationBarColor">@color/background</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textColorSecondary">@color/on_surface_medium</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        
+        <!-- Typography defaults -->
+        <item name="android:textColorPrimary">@color/label_primary</item>
+        <item name="android:textColorSecondary">@color/label_secondary</item>
+        <item name="android:textColorTertiary">@color/label_tertiary</item>
+        
+        <!-- Shape appearance -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.ShameTracker.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.ShameTracker.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.ShameTracker.Large</item>
     </style>
 
+    <!-- Splash theme -->
     <style name="Theme.ShameTracker.Splash" parent="Theme.ShameTracker">
-        <item name="android:windowBackground">@drawable/bg_dark_canvas</item>
+        <item name="android:windowBackground">@drawable/bg_light_canvas</item>
     </style>
 
-    <!-- Glass card styles -->
+    <!-- Shape appearances - Apple-style rounded corners -->
+    <style name="ShapeAppearance.ShameTracker.Small" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.ShameTracker.Medium" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.ShameTracker.Large" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <!-- Glass card styles - thinner, more subtle like iOS -->
     <style name="Widget.ShameTracker.GlassCard" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">24dp</item>
+        <item name="cardCornerRadius">20dp</item>
         <item name="cardElevation">0dp</item>
         <item name="cardBackgroundColor">@color/glass_card_surface</item>
         <item name="strokeColor">@color/glass_border</item>
-        <item name="strokeWidth">1.5dp</item>
+        <item name="strokeWidth">0.5dp</item>
         <item name="cardPreventCornerOverlap">false</item>
     </style>
 
-    <style name="Widget.ShameTracker.GlassCard.Elevated">
-        <item name="cardBackgroundColor">@color/glass_card_surface_elevated</item>
+    <style name="Widget.ShameTracker.GlassCard.Elevated" parent="Widget.ShameTracker.GlassCard">
+        <item name="cardBackgroundColor">@color/glass_card_surface</item>
         <item name="strokeColor">@color/glass_border_prominent</item>
-        <item name="strokeWidth">1.5dp</item>
+        <item name="strokeWidth">0.5dp</item>
+        <item name="cardElevation">4dp</item>
     </style>
 
-    <style name="Widget.ShameTracker.GlassCard.Subtle">
-        <item name="cardCornerRadius">18dp</item>
+    <style name="Widget.ShameTracker.GlassCard.Subtle" parent="Widget.ShameTracker.GlassCard">
+        <item name="cardCornerRadius">16dp</item>
         <item name="cardBackgroundColor">@color/glass_card_surface_subtle</item>
         <item name="strokeColor">@color/glass_border_subtle</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="strokeWidth">0.5dp</item>
     </style>
 
-    <!-- Typography styles -->
+    <!-- Section card - for grouped content like Settings/Health -->
+    <style name="Widget.ShameTracker.SectionCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">@color/secondary_system_grouped_background</item>
+        <item name="strokeColor">@color/separator_opaque</item>
+        <item name="strokeWidth">0.5dp</item>
+        <item name="cardPreventCornerOverlap">false</item>
+    </style>
+
+    <!-- Typography styles - Apple San Francisco style scaling -->
+    <style name="TextAppearance.ShameTracker.LargeTitle" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.037</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Title1" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.037</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Title2" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.037</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Title3" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.037</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Headline" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.BodyEmphasized" parent="TextAppearance.ShameTracker.Body">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Callout" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/label_primary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Subheadline" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/label_secondary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Footnote" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/label_tertiary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Caption1" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/label_tertiary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.ShameTracker.Caption2" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/label_quaternary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Metric styles for tracking screens -->
     <style name="TextAppearance.ShameTracker.HeroMetric" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textSize">64sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textColor">@color/label_primary</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">-0.02</item>
     </style>
 
     <style name="TextAppearance.ShameTracker.LargeMetric" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textColor">@color/label_primary</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">-0.015</item>
     </style>
 
     <style name="TextAppearance.ShameTracker.MediumMetric" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textColor">@color/label_primary</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="TextAppearance.ShameTracker.MetricLabel" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">11sp</item>
-        <item name="android:textColor">@color/on_surface_medium</item>
+        <item name="android:textColor">@color/label_tertiary</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:letterSpacing">0.08</item>
+        <item name="android:letterSpacing">0.12</item>
     </style>
 
+    <!-- Section header style -->
     <style name="TextAppearance.ShameTracker.SectionTitle" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textColor">@color/label_tertiary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <!-- Button styles -->
+    <style name="Widget.ShameTracker.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="backgroundTint">@color/system_blue</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">44dp</item>
+    </style>
+
+    <style name="Widget.ShameTracker.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/system_blue</item>
+        <item name="strokeColor">@color/system_blue</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">44dp</item>
+    </style>
+
+    <style name="Widget.ShameTracker.Button.Destructive" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="backgroundTint">@color/system_red</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">44dp</item>
+    </style>
+
+    <!-- Chip style for tags/labels -->
+    <style name="Widget.ShameTracker.Chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipCornerRadius">8dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/system_blue</item>
+        <item name="chipBackgroundColor">@color/glass_border_blue</item>
+        <item name="chipStrokeColor">@color/glass_border_blue</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:minHeight">28dp</item>
     </style>
 </resources>

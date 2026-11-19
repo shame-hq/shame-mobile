@@ -1,63 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary brand color — light mode uses deep blue-indigo -->
-    <color name="primary">#3B82F6</color>
-    <color name="primary_variant">#1D4ED8</color>
+    <!-- Apple-style color palette — Light mode (default) -->
+    
+    <!-- System Blue (iOS blue) -->
+    <color name="system_blue">#007AFF</color>
+    <color name="system_blue_light">#5AC8FA</color>
+    <color name="system_blue_dark">#0051D5</color>
+    
+    <!-- System Green -->
+    <color name="system_green">#34C759</color>
+    <color name="system_green_light">#32D74B</color>
+    
+    <!-- System Orange (for running) -->
+    <color name="system_orange">#FF9F0A</color>
+    <color name="system_orange_light">#FFB340</color>
+    <color name="system_orange_dark">#CC7700</color>
+    
+    <!-- System Red -->
+    <color name="system_red">#FF3B30</color>
+    <color name="system_red_light">#FF453A</color>
+    
+    <!-- System Purple -->
+    <color name="system_purple">#AF52DE</color>
+    
+    <!-- System Pink -->
+    <color name="system_pink">#FF2D92</color>
+    
+    <!-- System Teal -->
+    <color name="system_teal">#30B0C7</color>
+    
+    <!-- System Indigo -->
+    <color name="system_indigo">#5856D6</color>
+    
+    <!-- System Gray scale (Apple's grays) -->
+    <color name="system_gray">#8E8E93</color>
+    <color name="system_gray2">#AEAEB2</color>
+    <color name="system_gray3">#C7C7CC</color>
+    <color name="system_gray4">#D1D1D6</color>
+    <color name="system_gray5">#E5E5EA</color>
+    <color name="system_gray6">#F2F2F7</color>
+    
+    <!-- Semantic colors -->
+    <color name="label_primary">#000000</color>
+    <color name="label_secondary">#3C3C43</color>
+    <color name="label_tertiary">#3C3C4399</color>
+    <color name="label_quaternary">#3C3C432E</color>
+    
+    <color name="separator">#3C3C434A</color>
+    <color name="separator_opaque">#C6C6C8</color>
+    
+    <!-- System backgrounds -->
+    <color name="system_background">#FFFFFF</color>
+    <color name="secondary_system_background">#F2F2F7</color>
+    <color name="tertiary_system_background">#FFFFFF</color>
+    
+    <!-- System grouped backgrounds -->
+    <color name="system_grouped_background">#F2F2F7</color>
+    <color name="secondary_system_grouped_background">#FFFFFF</color>
+    <color name="tertiary_system_grouped_background">#F2F2F7</color>
+    
+    <!-- System fill colors -->
+    <color name="system_fill">#78788033</color>
+    <color name="secondary_system_fill">#78788028</color>
+    <color name="tertiary_system_fill">#7676801F</color>
+    <color name="quaternary_system_fill">#74748014</color>
+    
+    <!-- App-specific semantic mappings -->
+    <color name="primary">@color/system_blue</color>
+    <color name="primary_variant">@color/system_blue_dark</color>
     <color name="on_primary">#FFFFFF</color>
-
-    <!-- Canvas & background — soft blue-white glassmorphism light mode -->
-    <color name="background">#EFF6FF</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#EEF2FF</color>
-    <color name="on_surface">#0F172A</color>
-    <color name="on_surface_medium">#475569</color>
-    <color name="on_surface_muted">#94A3B8</color>
-
-    <!-- Accent: running orange -->
-    <color name="accent">#F97316</color>
-    <color name="accent_light">#FB923C</color>
-    <color name="accent_dark">#EA580C</color>
-    <color name="accent_glow">#40F97316</color>
-    <color name="accent_glass">#2DF97316</color>
-
-    <!-- Glassmorphism palette — light mode uses darker tints on white -->
-    <color name="glass_card_bg">#B0FFFFFF</color>
-    <color name="glass_card_bg_prominent">#D0FFFFFF</color>
-    <color name="glass_card_bg_subtle">#80FFFFFF</color>
-    <color name="glass_card_surface">#E8FFFFFF</color>
-    <color name="glass_card_surface_elevated">#F0FFFFFF</color>
-    <color name="glass_card_surface_subtle">#C0FFFFFF</color>
-    <color name="glass_border">#40000000</color>
-    <color name="glass_border_subtle">#20000000</color>
-    <color name="glass_border_prominent">#60000000</color>
-    <color name="glass_border_accent">#80F97316</color>
-    <color name="glass_border_cyan">#6606B6D4</color>
-    <color name="glass_border_purple">#66A855F7</color>
-
-    <!-- Secondary Accents -->
-    <color name="cyan_accent">#0891B2</color>
-    <color name="cyan_glass">#200891B2</color>
-    <color name="blue_accent">#2563EB</color>
-    <color name="blue_glass">#202563EB</color>
-    <color name="purple_accent">#7C3AED</color>
-    <color name="purple_glass">#207C3AED</color>
-    <color name="emerald_accent">#059669</color>
-    <color name="emerald_glass">#20059669</color>
-    <color name="rose_accent">#E11D48</color>
-    <color name="rose_glass">#20E11D48</color>
-
-    <!-- Lap colours — map overlays, cycling per lap -->
-    <color name="lap_1">#3B82F6</color>
-    <color name="lap_2">#10B981</color>
-    <color name="lap_3">#F59E0B</color>
-    <color name="lap_4">#EF4444</color>
-    <color name="lap_5">#8B5CF6</color>
-    <color name="lap_6">#EC4899</color>
-
+    
+    <color name="accent">@color/system_orange</color>
+    <color name="accent_light">@color/system_orange_light</color>
+    <color name="accent_dark">@color/system_orange_dark</color>
+    
+    <color name="background">@color/system_grouped_background</color>
+    <color name="surface">@color/system_background</color>
+    <color name="surface_variant">@color/secondary_system_background</color>
+    <color name="on_surface">@color/label_primary</color>
+    <color name="on_surface_medium">@color/label_secondary</color>
+    <color name="on_surface_muted">@color/label_tertiary</color>
+    
+    <!-- Glassmorphism - refined for Apple style (thinner, more subtle) -->
+    <color name="glass_card_bg">#80FFFFFF</color>
+    <color name="glass_card_bg_prominent">#A0FFFFFF</color>
+    <color name="glass_card_bg_subtle">#40FFFFFF</color>
+    <color name="glass_card_surface">#FFFFFF</color>
+    <color name="glass_card_surface_elevated">#FFFFFF</color>
+    <color name="glass_card_surface_subtle">#F2F2F7</color>
+    <color name="glass_border">#3C3C431A</color>
+    <color name="glass_border_subtle">#3C3C430D</color>
+    <color name="glass_border_prominent">#3C3C4326</color>
+    <color name="glass_border_accent">#40FF9F0A</color>
+    <color name="glass_border_blue">#40007AFF</color>
+    <color name="glass_border_green">#4034C759</color>
+    <color name="glass_border_red">#40FF3B30</color>
+    <color name="glass_border_purple">#40AF52DE</color>
+    
+    <!-- Lap colours - Apple-style vibrant but not garish -->
+    <color name="lap_1">@color/system_blue</color>
+    <color name="lap_2">@color/system_green</color>
+    <color name="lap_3">@color/system_orange</color>
+    <color name="lap_4">@color/system_red</color>
+    <color name="lap_5">@color/system_purple</color>
+    <color name="lap_6">@color/system_pink</color>
+    
     <!-- Status colors -->
-    <color name="success">#059669</color>
-    <color name="warning">#D97706</color>
-    <color name="warning_glass">#33D97706</color>
-    <color name="error">#DC2626</color>
-    <color name="error_glass">#33DC2626</color>
+    <color name="success">@color/system_green</color>
+    <color name="warning">@color/system_orange</color>
+    <color name="warning_glass">@color/glass_border_accent</color>
+    <color name="error">@color/system_red</color>
+    <color name="error_glass">@color/glass_border_red</color>
+    
+    <!-- Chart colors -->
+    <color name="chart_blue">@color/system_blue</color>
+    <color name="chart_green">@color/system_green</color>
+    <color name="chart_orange">@color/system_orange</color>
+    <color name="chart_red">@color/system_red</color>
+    <color name="chart_purple">@color/system_purple</color>
+    <color name="chart_teal">@color/system_teal</color>
+    <color name="chart_pink">@color/system_pink</color>
+    <color name="chart_indigo">@color/system_indigo</color>
 </resources>

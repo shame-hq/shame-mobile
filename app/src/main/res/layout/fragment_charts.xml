@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_cyan_atmosphere"
-    android:fillViewport="true">
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="32dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingTop="28dp"
-        android:paddingBottom="36dp">
+        android:paddingTop="20dp">
 
         <!-- ── Header Section ── -->
         <LinearLayout
@@ -25,51 +26,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_glass_chip"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_bar_chart"
-                    app:tint="@color/cyan_accent"
-                    android:layout_marginEnd="6dp"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PERFORMANCE METRICS"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08"
-                    android:textColor="@color/cyan_accent" />
-            </LinearLayout>
+                style="@style/TextAppearance.ShameTracker.SectionTitle"
+                android:text="PERFORMANCE METRICS"
+                android:textColor="@color/system_blue" />
 
             <TextView
                 android:id="@+id/tvChartsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/charts"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:includeFontPadding="false" />
+                style="@style/TextAppearance.ShameTracker.LargeTitle"
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trends across your last 10 completed runs"
-                android:textSize="13sp"
-                android:textColor="@color/on_surface_medium"
-                android:layout_marginTop="3dp" />
+                style="@style/TextAppearance.ShameTracker.Body"
+                android:textColor="@color/label_secondary"
+                android:layout_marginTop="6dp" />
         </LinearLayout>
 
         <!-- ── Empty State Card ── -->
@@ -77,13 +55,9 @@
             android:id="@+id/layoutEmptyCharts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
             android:visibility="gone"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border"
-            app:strokeWidth="1.5dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/headerCharts"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -95,30 +69,28 @@
                 android:gravity="center"
                 android:padding="32dp">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_bar_chart"
-                    app:tint="@color/cyan_accent"
-                    android:background="@drawable/bg_glass_chip"
-                    android:padding="10dp"
+                    app:tint="@color/system_blue"
+                    android:background="@color/system_gray6"
+                    android:padding="12dp"
                     android:contentDescription="@null" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No Workout Data Yet"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    style="@style/TextAppearance.ShameTracker.Title3"
                     android:layout_marginTop="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Complete a run session to unlock distance and lap progression charts."
-                    android:textSize="13sp"
-                    android:textColor="@color/on_surface_medium"
+                    style="@style/TextAppearance.ShameTracker.Body"
+                    android:textColor="@color/label_secondary"
                     android:gravity="center"
                     android:layout_marginTop="6dp" />
             </LinearLayout>
@@ -130,11 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border"
-            app:strokeWidth="1.5dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/headerCharts"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -143,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="20dp">
 
                 <!-- Header -->
                 <LinearLayout
@@ -151,45 +119,37 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="16dp">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_straighten"
-                        app:tint="@color/accent"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@null" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_straighten"
+                    app:tint="@color/system_blue"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@null" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="DISTANCE PER RUN"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:textColor="@color/accent" />
+                    <TextView
+                        style="@style/TextAppearance.ShameTracker.SectionTitle"
+                        android:text="DISTANCE PER RUN" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Kilometres per session"
-                            android:textSize="13sp"
-                            android:textColor="@color/on_surface_medium" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/TextAppearance.ShameTracker.Footnote"
+                        android:text="Kilometres per session" />
                 </LinearLayout>
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/barChartDistance"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
             </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartDistance"
+                android:layout_width="match_parent"
+                android:layout_height="220dp" />
+        </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- ── Laps Chart Card ── -->
@@ -197,12 +157,8 @@
             android:id="@+id/cardLapsChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border"
-            app:strokeWidth="1.5dp"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/cardDistanceChart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -211,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="20dp">
 
                 <!-- Header -->
                 <LinearLayout
@@ -219,14 +175,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="16dp">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/ic_flag"
-                        app:tint="@color/cyan_accent"
-                        android:layout_marginEnd="8dp"
+                        app:tint="@color/system_orange"
+                        android:layout_marginEnd="10dp"
                         android:contentDescription="@null" />
 
                     <LinearLayout
@@ -236,27 +192,19 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="LAPS PER RUN"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:textColor="@color/cyan_accent" />
+                            style="@style/TextAppearance.ShameTracker.SectionTitle"
+                            android:text="LAPS PER RUN" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total laps completed"
-                            android:textSize="13sp"
-                            android:textColor="@color/on_surface_medium" />
+                            style="@style/TextAppearance.ShameTracker.Footnote"
+                            android:text="Total laps completed" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChartLaps"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="220dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

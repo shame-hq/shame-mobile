@@ -1,286 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_dark_canvas">
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="32dp">
 
-    <!-- ── Top Header & Date ── -->
-    <LinearLayout
-        android:id="@+id/headerDetail"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:paddingHorizontal="20dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:paddingTop="20dp">
 
+        <!-- ── Top Header & Date ── -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/headerDetail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_glass_chip"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:layout_marginBottom="6dp">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@drawable/ic_directions_run"
-                app:tint="@color/accent"
-                android:layout_marginEnd="6dp"
-                android:contentDescription="@null" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/TextAppearance.ShameTracker.SectionTitle"
                 android:text="SESSION SUMMARY"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.08"
-                android:textColor="@color/accent_light" />
+                android:textColor="@color/system_blue" />
+
+            <TextView
+                android:id="@+id/tvDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Run Detail"
+                style="@style/TextAppearance.ShameTracker.LargeTitle"
+                android:layout_marginTop="8dp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvDetailTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Run Detail"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:includeFontPadding="false" />
-    </LinearLayout>
-
-    <!-- ── Hero Metrics Glass Card ── -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardMetrics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="4dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/glass_card_surface"
-        app:strokeColor="@color/glass_border"
-        app:strokeWidth="1.5dp"
-        app:layout_constraintTop_toBottomOf="@id/headerDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
+        <!-- ── Hero Metrics Card ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMetrics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="14dp">
+            android:layout_marginTop="16dp"
+            style="@style/Widget.ShameTracker.SectionCard"
+            app:layout_constraintTop_toBottomOf="@id/headerDetail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- 3 Columns: Distance, Duration, Laps -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false"
-                android:weightSum="3">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <!-- Distance -->
+                <!-- 3 Columns: Distance, Duration, Laps -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:weightSum="3">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <!-- Distance -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="DISTANCE"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/on_surface_medium" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/tvDetailDistance"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            style="@style/TextAppearance.ShameTracker.MetricLabel"
+                            android:text="DISTANCE" />
+
+                        <TextView
+                            android:id="@+id/tvDetailDistance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.00 km"
+                            style="@style/TextAppearance.ShameTracker.LargeMetric"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/separator_opaque"
+                        android:alpha="0.3" />
+
+                    <!-- Duration -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="0.00 km"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="2dp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/TextAppearance.ShameTracker.MetricLabel"
+                            android:text="DURATION" />
+
+                        <TextView
+                            android:id="@+id/tvDetailDuration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:00"
+                            style="@style/TextAppearance.ShameTracker.LargeMetric"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/separator_opaque"
+                        android:alpha="0.3" />
+
+                    <!-- Laps -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/TextAppearance.ShameTracker.MetricLabel"
+                            android:text="LAPS" />
+
+                        <TextView
+                            android:id="@+id/tvDetailLaps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            style="@style/TextAppearance.ShameTracker.LargeMetric"
+                            android:textColor="@color/system_orange"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/glass_border" />
-
-                <!-- Duration -->
-                <LinearLayout
-                    android:layout_width="0dp"
+                <!-- Hidden/backwards-compatible TextView for legacy tvDetailStats -->
+                <TextView
+                    android:id="@+id/tvDetailStats"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="DURATION"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/on_surface_medium" />
-
-                    <TextView
-                        android:id="@+id/tvDetailDuration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00:00"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
-
-                <!-- Divider -->
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/glass_border" />
-
-                <!-- Laps -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LAPS"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/on_surface_medium" />
-
-                    <TextView
-                        android:id="@+id/tvDetailLaps"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
-
+                    android:visibility="gone" />
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <!-- Hidden/backwards-compatible TextView for legacy tvDetailStats -->
-            <TextView
-                android:id="@+id/tvDetailStats"
+        <!-- ── Map View ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMapContainer"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.ShameTracker.GlassCard"
+            app:layout_constraintTop_toBottomOf="@id/cardMetrics"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/mapView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:layout_height="match_parent" />
+        </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- ── MapView in Rounded Glass Frame ── -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardMapContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="22dp"
-        app:cardElevation="0dp"
-        app:strokeColor="@color/glass_border"
-        app:strokeWidth="1.5dp"
-        app:cardBackgroundColor="#0F172A"
-        app:layout_constraintTop_toBottomOf="@id/cardMetrics"
-        app:layout_constraintBottom_toTopOf="@id/bottomPanel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <org.osmdroid.views.MapView
-            android:id="@+id/mapView"
+        <!-- ── Replay Controls ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/replayControls"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- ── Replay Controls ── -->
-    <LinearLayout
-        android:id="@+id/replayControls"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:background="@color/glass_card_surface"
-        app:layout_constraintBottom_toTopOf="@id/bottomPanel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageButton
-            android:id="@+id/btnReplayPlay"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_play"
-            android:contentDescription="Play replay" />
-
-        <SeekBar
-            android:id="@+id/seekReplay"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="12dp" />
-
-        <TextView
-            android:id="@+id/tvReplayTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0:00"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <!-- ── Bottom Lap Splits Panel ── -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bottomPanel"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="22dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/glass_card_surface"
-        app:strokeColor="@color/glass_border"
-        app:strokeWidth="1.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginTop="12dp"
+            style="@style/Widget.ShameTracker.GlassCard.Subtle"
+            app:layout_constraintTop_toBottomOf="@id/cardMapContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -288,34 +192,86 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="16dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="6dp">
+                android:paddingVertical="12dp">
+
+                <ImageButton
+                    android:id="@+id/btnReplayPlay"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_media_play"
+                    android:contentDescription="Play replay"
+                    android:scaleType="centerInside"
+                    android:tint="@color/system_blue" />
+
+                <SeekBar
+                    android:id="@+id/seekReplay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="16dp"
+                    android:thumb="@drawable/seekbar_thumb"
+                    android:progressTint="@color/system_blue"
+                    android:progressBackgroundTint="@color/system_gray5" />
+
+                <TextView
+                    android:id="@+id/tvReplayTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.ShameTracker.Caption1"
+                    android:textColor="@color/label_tertiary"
+                    android:text="0:00" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ── Bottom Lap Splits Panel ── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bottomPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="200dp"
+            style="@style/Widget.ShameTracker.GlassCard"
+            app:layout_constraintTop_toBottomOf="@id/replayControls"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="LAP BREAKDOWN"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08"
-                    android:textColor="@color/on_surface_medium" />
+                    style="@style/TextAppearance.ShameTracker.SectionTitle"
+                    android:text="LAP BREAKDOWN" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DIST · TIME · PACE"
-                    android:textSize="10sp"
-                    android:textColor="@color/on_surface_muted" />
+                    style="@style/TextAppearance.ShameTracker.Caption2"
+                    android:text="DIST · TIME · PACE" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDetailLaps"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:paddingBottom="8dp" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

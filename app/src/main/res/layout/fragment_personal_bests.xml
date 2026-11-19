@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home_atmosphere"
-    android:fillViewport="true">
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="32dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingTop="28dp"
-        android:paddingBottom="36dp">
+        android:paddingTop="20dp">
 
         <!-- ── Header Section ── -->
         <LinearLayout
@@ -25,51 +26,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_glass_chip_accent"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_workspace_premium"
-                    app:tint="@color/accent"
-                    android:layout_marginEnd="6dp"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HALL OF FAME"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08"
-                    android:textColor="@color/accent_light" />
-            </LinearLayout>
+                style="@style/TextAppearance.ShameTracker.SectionTitle"
+                android:text="HALL OF FAME"
+                android:textColor="@color/system_orange" />
 
             <TextView
                 android:id="@+id/tvBestsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/personal_bests"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:includeFontPadding="false" />
+                style="@style/TextAppearance.ShameTracker.LargeTitle"
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Your all-time milestones and workout records"
-                android:textSize="13sp"
-                android:textColor="@color/on_surface_medium"
-                android:layout_marginTop="3dp" />
+                style="@style/TextAppearance.ShameTracker.Body"
+                android:textColor="@color/label_secondary"
+                android:layout_marginTop="6dp" />
         </LinearLayout>
 
         <!-- ── Card 1: Longest Distance ── -->
@@ -78,11 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="#60F97316"
-            app:strokeWidth="1.5dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/headerBests"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -99,36 +73,29 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/ic_straighten"
-                        app:tint="@color/accent"
-                        android:background="@drawable/bg_glass_chip_accent"
-                        android:padding="6dp"
-                        android:layout_marginEnd="10dp"
+                        app:tint="@color/system_blue"
+                        android:background="@color/system_gray6"
+                        android:padding="8dp"
+                        android:layout_marginEnd="12dp"
                         android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="LONGEST DISTANCE"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/accent_light" />
+                        style="@style/TextAppearance.ShameTracker.SectionTitle"
+                        android:text="LONGEST DISTANCE" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="DISTANCE"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light"
-                        android:background="@drawable/bg_glass_chip_accent"
+                        android:background="@color/glass_border_blue"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp" />
+                        android:paddingVertical="4dp" />
                 </LinearLayout>
 
                 <TextView
@@ -136,18 +103,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
-                    android:textSize="36sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:includeFontPadding="false"
+                    style="@style/TextAppearance.ShameTracker.HeroMetric"
                     android:layout_marginTop="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Single session peak distance"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface_muted"
+                    style="@style/TextAppearance.ShameTracker.Footnote"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -157,12 +120,8 @@
             android:id="@+id/cardLapsBest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border_cyan"
-            app:strokeWidth="1.5dp"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/cardDistanceBest"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -179,36 +138,29 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/ic_flag"
-                        app:tint="@color/cyan_accent"
-                        android:background="@drawable/bg_glass_chip"
-                        android:padding="6dp"
-                        android:layout_marginEnd="10dp"
+                        app:tint="@color/system_orange"
+                        android:background="@color/system_gray6"
+                        android:padding="8dp"
+                        android:layout_marginEnd="12dp"
                         android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="MOST LAPS IN A RUN"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/cyan_accent" />
+                        style="@style/TextAppearance.ShameTracker.SectionTitle"
+                        android:text="MOST LAPS IN A RUN" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="STAMINA"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/cyan_accent"
-                        android:background="@drawable/bg_glass_chip"
+                        android:background="@color/glass_border_accent"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp" />
+                        android:paddingVertical="4dp" />
                 </LinearLayout>
 
                 <TextView
@@ -216,18 +168,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
-                    android:textSize="36sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/cyan_accent"
-                    android:includeFontPadding="false"
+                    style="@style/TextAppearance.ShameTracker.HeroMetric"
+                    android:textColor="@color/system_orange"
                     android:layout_marginTop="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Most circuit laps in one session"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface_muted"
+                    style="@style/TextAppearance.ShameTracker.Footnote"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -237,12 +186,8 @@
             android:id="@+id/cardPaceBest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="#6010B981"
-            app:strokeWidth="1.5dp"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/cardLapsBest"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -259,36 +204,29 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/ic_speed"
-                        app:tint="@color/emerald_accent"
-                        android:background="@drawable/bg_glass_chip"
-                        android:padding="6dp"
-                        android:layout_marginEnd="10dp"
+                        app:tint="@color/system_green"
+                        android:background="@color/system_gray6"
+                        android:padding="8dp"
+                        android:layout_marginEnd="12dp"
                         android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="BEST PACE"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/emerald_accent" />
+                        style="@style/TextAppearance.ShameTracker.SectionTitle"
+                        android:text="BEST PACE" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="SPEED"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/emerald_accent"
-                        android:background="@drawable/bg_glass_chip"
+                        android:background="@color/glass_border_green"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp" />
+                        android:paddingVertical="4dp" />
                 </LinearLayout>
 
                 <TextView
@@ -296,18 +234,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
-                    android:textSize="36sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/emerald_accent"
-                    android:includeFontPadding="false"
+                    style="@style/TextAppearance.ShameTracker.HeroMetric"
+                    android:textColor="@color/system_green"
                     android:layout_marginTop="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fastest average speed across full run"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface_muted"
+                    style="@style/TextAppearance.ShameTracker.Footnote"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -317,12 +252,8 @@
             android:id="@+id/cardTotalRuns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border_purple"
-            app:strokeWidth="1.5dp"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/cardPaceBest"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -339,36 +270,29 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/ic_flame"
-                        app:tint="@color/purple_accent"
-                        android:background="@drawable/bg_glass_chip"
-                        android:padding="6dp"
-                        android:layout_marginEnd="10dp"
+                        app:tint="@color/system_purple"
+                        android:background="@color/system_gray6"
+                        android:padding="8dp"
+                        android:layout_marginEnd="12dp"
                         android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="TOTAL RUNS COMPLETED"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/purple_accent" />
+                        style="@style/TextAppearance.ShameTracker.SectionTitle"
+                        android:text="TOTAL RUNS COMPLETED" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="STREAK"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/purple_accent"
-                        android:background="@drawable/bg_glass_chip"
+                        android:background="@color/glass_border_purple"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp" />
+                        android:paddingVertical="4dp" />
                 </LinearLayout>
 
                 <TextView
@@ -376,18 +300,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="36sp"
-                    android:textStyle="bold"
-                    android:textColor="#C084FC"
-                    android:includeFontPadding="false"
+                    style="@style/TextAppearance.ShameTracker.HeroMetric"
+                    android:textColor="@color/system_purple"
                     android:layout_marginTop="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total lifetime tracked sessions"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface_muted"
+                    style="@style/TextAppearance.ShameTracker.Footnote"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

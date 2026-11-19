@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home_atmosphere"
-    android:fillViewport="true">
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="40dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingTop="36dp"
-        android:paddingBottom="36dp">
+        android:paddingTop="20dp">
 
         <!-- ── Top Header & Greeting ── -->
         <LinearLayout
@@ -25,52 +26,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_glass_chip_accent"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="5dp"
-                android:layout_marginBottom="12dp">
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_directions_run"
-                    app:tint="@color/accent"
-                    android:layout_marginEnd="6dp"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:id="@+id/tvAppTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/accent_light"
-                    android:letterSpacing="0.08" />
-            </LinearLayout>
-
             <TextView
                 android:id="@+id/tvGreeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ready for a run?"
-                android:textSize="32sp"
+                android:textSize="34sp"
                 android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                android:includeFontPadding="false" />
+                android:textColor="@color/label_primary"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.037" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Track route, live laps, and break personal bests."
-                android:textSize="14sp"
-                android:textColor="@color/on_surface_medium"
-                android:layout_marginTop="4dp" />
+                android:textSize="17sp"
+                android:textColor="@color/label_secondary"
+                android:layout_marginTop="6dp" />
         </LinearLayout>
 
         <!-- ── Hero Start Run Action ── -->
@@ -78,12 +51,8 @@
             android:id="@+id/cardStartHero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            app:cardCornerRadius="26dp"
-            app:cardElevation="8dp"
-            app:strokeColor="#50F97316"
-            app:strokeWidth="1.5dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
+            android:layout_marginTop="24dp"
+            style="@style/Widget.ShameTracker.GlassCard.Elevated"
             app:layout_constraintTop_toBottomOf="@id/headerLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -92,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -108,51 +77,37 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SESSION CONTROL"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:textColor="@color/accent" />
+                            style="@style/TextAppearance.ShameTracker.SectionTitle"
+                            android:text="SESSION CONTROL" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.ShameTracker.Title3"
                             android:text="Live GPS &amp; Lap Tracking"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/on_surface"
-                            android:layout_marginTop="2dp" />
+                            android:layout_marginTop="4dp" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:src="@drawable/ic_speed"
-                        app:tint="@color/accent_light"
-                        android:background="@drawable/bg_glass_chip_accent"
-                        android:padding="8dp"
-                        android:contentDescription="@null" />
+                        android:background="@drawable/bg_button_primary_accent"
+                        android:padding="10dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerInside" />
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btnStartSession"
+                    style="@style/Widget.ShameTracker.Button.Primary"
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
+                    android:layout_height="56dp"
                     android:text="@string/start_session"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.03"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/bg_button_primary_accent"
-                    app:backgroundTint="@null"
-                    android:elevation="6dp"
-                    android:gravity="center"
                     android:drawableStart="@drawable/ic_play_arrow"
                     android:drawableTint="#FFFFFF"
-                    android:paddingHorizontal="24dp"
-                    android:drawablePadding="10dp" />
+                    android:drawablePadding="12dp"
+                    android:paddingHorizontal="32dp"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -161,12 +116,8 @@
             android:id="@+id/cardLastRun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            app:cardCornerRadius="22dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border"
-            app:strokeWidth="1.5dp"
+            android:layout_marginTop="24dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/cardStartHero"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -175,43 +126,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="12dp">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_history"
-                        app:tint="@color/accent"
-                        android:layout_marginEnd="8dp"
+                        app:tint="@color/system_blue"
+                        android:layout_marginEnd="10dp"
                         android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/last_run"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.06"
-                        android:textColor="@color/on_surface_medium" />
+                        style="@style/TextAppearance.ShameTracker.SectionTitle"
+                        android:text="@string/last_run" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="RECENT"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light"
-                        android:background="@drawable/bg_glass_chip_accent"
+                        android:background="@color/glass_border_blue"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp" />
+                        android:paddingVertical="4dp" />
                 </LinearLayout>
 
                 <TextView
@@ -219,10 +163,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/no_recent_run"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface"
-                    android:lineSpacingExtra="3dp" />
+                    style="@style/TextAppearance.ShameTracker.Body"
+                    android:lineSpacingExtra="2dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -231,120 +173,174 @@
             android:id="@+id/tvExploreTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            style="@style/TextAppearance.ShameTracker.SectionTitle"
             android:text="DASHBOARD"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.08"
-            android:textColor="@color/on_surface_medium"
             app:layout_constraintTop_toBottomOf="@id/cardLastRun"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <GridLayout
+        <androidx.gridlayout.widget.GridLayout
             android:id="@+id/gridNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:columnCount="2"
             android:rowCount="2"
+            android:alignmentMode="alignMargins"
             app:layout_constraintTop_toBottomOf="@id/tvExploreTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
             <!-- History Tile -->
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnHistory"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_columnWeight="1"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="12dp"
-                android:text="@string/history"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                app:icon="@drawable/ic_history"
-                app:iconSize="24dp"
-                app:iconGravity="top"
-                app:iconTint="@color/blue_accent"
-                app:cornerRadius="20dp"
-                app:backgroundTint="@color/glass_card_surface"
-                app:strokeColor="@color/glass_border"
-                app:strokeWidth="1.5dp"
-                app:rippleColor="#33FFFFFF"
-                android:insetTop="0dp"
-                android:insetBottom="0dp" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                style="@style/Widget.ShameTracker.GlassCard"
+                app:layout_columnWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_history"
+                        app:tint="@color/system_blue"
+                        android:layout_marginBottom="8dp"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Subheadline"
+                        android:text="@string/history"
+                        android:textColor="@color/label_primary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Charts Tile -->
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnCharts"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_columnWeight="1"
-                android:layout_marginStart="6dp"
-                android:layout_marginBottom="12dp"
-                android:text="@string/charts"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                app:icon="@drawable/ic_bar_chart"
-                app:iconSize="24dp"
-                app:iconGravity="top"
-                app:iconTint="@color/cyan_accent"
-                app:cornerRadius="20dp"
-                app:backgroundTint="@color/glass_card_surface"
-                app:strokeColor="@color/glass_border"
-                app:strokeWidth="1.5dp"
-                app:rippleColor="#33FFFFFF"
-                android:insetTop="0dp"
-                android:insetBottom="0dp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                style="@style/Widget.ShameTracker.GlassCard"
+                app:layout_columnWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_bar_chart"
+                        app:tint="@color/system_teal"
+                        android:layout_marginBottom="8dp"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Subheadline"
+                        android:text="@string/charts"
+                        android:textColor="@color/label_primary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Personal Bests Tile -->
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnBests"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_columnWeight="1"
-                android:layout_marginEnd="6dp"
-                android:text="@string/personal_bests"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                app:icon="@drawable/ic_workspace_premium"
-                app:iconSize="24dp"
-                app:iconGravity="top"
-                app:iconTint="@color/accent_light"
-                app:cornerRadius="20dp"
-                app:backgroundTint="@color/glass_card_surface"
-                app:strokeColor="@color/glass_border"
-                app:strokeWidth="1.5dp"
-                app:rippleColor="#33FFFFFF"
-                android:insetTop="0dp"
-                android:insetBottom="0dp" />
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                style="@style/Widget.ShameTracker.GlassCard"
+                app:layout_columnWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_workspace_premium"
+                        app:tint="@color/system_orange"
+                        android:layout_marginBottom="8dp"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Subheadline"
+                        android:text="@string/personal_bests"
+                        android:textColor="@color/label_primary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Settings Tile -->
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnSettings"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_columnWeight="1"
-                android:layout_marginStart="6dp"
-                android:text="@string/settings"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                app:icon="@drawable/ic_settings"
-                app:iconSize="24dp"
-                app:iconGravity="top"
-                app:iconTint="@color/on_surface_medium"
-                app:cornerRadius="20dp"
-                app:backgroundTint="@color/glass_card_surface"
-                app:strokeColor="@color/glass_border"
-                app:strokeWidth="1.5dp"
-                app:rippleColor="#33FFFFFF"
-                android:insetTop="0dp"
-                android:insetBottom="0dp" />
-        </GridLayout>
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                style="@style/Widget.ShameTracker.GlassCard"
+                app:layout_columnWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_settings"
+                        app:tint="@color/label_tertiary"
+                        android:layout_marginBottom="8dp"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.ShameTracker.Subheadline"
+                        android:text="@string/settings"
+                        android:textColor="@color/label_primary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.gridlayout.widget.GridLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -5,46 +5,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home_atmosphere"
-    android:fillViewport="true">
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="40dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="24dp"
-        android:paddingTop="48dp"
-        android:paddingBottom="36dp">
+        android:paddingTop="40dp">
 
         <!-- ── Trophy / Achievement Icon Badge ── -->
-        <FrameLayout
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iconBadgeLayout"
             android:layout_width="88dp"
             android:layout_height="88dp"
-            android:background="@drawable/bg_glass_chip_accent"
+            android:src="@drawable/ic_check_circle"
+            app:tint="@color/system_green"
+            android:background="@color/system_green_light"
+            android:padding="20dp"
+            android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_check_circle"
-                app:tint="@color/accent"
-                android:contentDescription="@null" />
-        </FrameLayout>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- ── Subtitle & Title ── -->
         <TextView
             android:id="@+id/tvSummarySubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="20dp"
+            style="@style/TextAppearance.ShameTracker.SectionTitle"
             android:text="SESSION FINISHED"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1"
-            android:textColor="@color/accent_light"
+            android:textColor="@color/system_green"
             app:layout_constraintTop_toBottomOf="@id/iconBadgeLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -53,11 +47,9 @@
             android:id="@+id/tvSummaryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="Run Complete!"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
+            style="@style/TextAppearance.ShameTracker.LargeTitle"
             app:layout_constraintTop_toBottomOf="@id/tvSummarySubtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -68,23 +60,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Today"
-            android:textSize="14sp"
-            android:textColor="@color/on_surface_medium"
+            style="@style/TextAppearance.ShameTracker.Subheadline"
             app:layout_constraintTop_toBottomOf="@id/tvSummaryTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- ── Main Glass Summary Card ── -->
+        <!-- ── Main Summary Card ── -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardSummaryDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            app:cardCornerRadius="26dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/glass_card_surface"
-            app:strokeColor="@color/glass_border_prominent"
-            app:strokeWidth="1.5dp"
+            style="@style/Widget.ShameTracker.SectionCard"
             app:layout_constraintTop_toBottomOf="@id/tvSummaryDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -100,11 +87,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TOTAL DISTANCE"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08"
-                    android:textColor="@color/accent" />
+                    style="@style/TextAppearance.ShameTracker.MetricLabel"
+                    android:text="TOTAL DISTANCE" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -112,35 +96,32 @@
                     android:orientation="horizontal"
                     android:gravity="bottom"
                     android:baselineAligned="true"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="24dp">
 
                     <TextView
                         android:id="@+id/tvSummaryDistance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0.00"
-                        android:textSize="60sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:includeFontPadding="false" />
+                        style="@style/TextAppearance.ShameTracker.HeroMetric" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
                         android:text="km"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light" />
+                        style="@style/TextAppearance.ShameTracker.Title2"
+                        android:textColor="@color/system_blue" />
                 </LinearLayout>
 
                 <!-- Divider -->
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/glass_border"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_height="0.5dp"
+                    android:background="@color/separator_opaque"
+                    android:layout_marginBottom="24dp" />
 
                 <!-- 3-Column Secondary Stats -->
                 <LinearLayout
@@ -158,31 +139,24 @@
                         android:orientation="vertical"
                         android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:src="@drawable/ic_timer"
-                            app:tint="@color/on_surface_medium"
+                            app:tint="@color/label_tertiary"
                             android:contentDescription="@null"
-                            android:layout_marginBottom="4dp" />
+                            android:layout_marginBottom="6dp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TIME"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:textColor="@color/on_surface_medium" />
+                            style="@style/TextAppearance.ShameTracker.MetricLabel"
+                            android:text="TIME" />
 
                         <TextView
                             android:id="@+id/tvSummaryDuration"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00:00"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
+                            style="@style/TextAppearance.ShameTracker.MediumMetric"
                             android:layout_marginTop="2dp" />
                     </LinearLayout>
 
@@ -194,31 +168,24 @@
                         android:orientation="vertical"
                         android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:src="@drawable/ic_speed"
-                            app:tint="@color/on_surface_medium"
+                            app:tint="@color/label_tertiary"
                             android:contentDescription="@null"
-                            android:layout_marginBottom="4dp" />
+                            android:layout_marginBottom="6dp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PACE"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:textColor="@color/on_surface_medium" />
+                            style="@style/TextAppearance.ShameTracker.MetricLabel"
+                            android:text="PACE" />
 
                         <TextView
                             android:id="@+id/tvSummaryPace"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-- /km"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
+                            style="@style/TextAppearance.ShameTracker.MediumMetric"
                             android:layout_marginTop="2dp" />
                     </LinearLayout>
 
@@ -230,31 +197,25 @@
                         android:orientation="vertical"
                         android:gravity="center">
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:src="@drawable/ic_flag"
-                            app:tint="@color/on_surface_medium"
+                            app:tint="@color/label_tertiary"
                             android:contentDescription="@null"
-                            android:layout_marginBottom="4dp" />
+                            android:layout_marginBottom="6dp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="LAPS"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:textColor="@color/on_surface_medium" />
+                            style="@style/TextAppearance.ShameTracker.MetricLabel"
+                            android:text="LAPS" />
 
                         <TextView
                             android:id="@+id/tvSummaryLaps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
+                            style="@style/TextAppearance.ShameTracker.MediumMetric"
+                            android:textColor="@color/system_orange"
                             android:layout_marginTop="2dp" />
                     </LinearLayout>
 
@@ -266,20 +227,15 @@
         <!-- ── Done Button ── -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDone"
+            style="@style/Widget.ShameTracker.Button.Primary"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_marginTop="36dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="28dp"
             android:text="Done · Back to Home"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_button_primary_accent"
-            app:backgroundTint="@null"
             app:icon="@drawable/ic_check_circle"
             app:iconTint="#FFFFFF"
             app:iconSize="22dp"
             app:iconGravity="textStart"
-            android:elevation="6dp"
             app:layout_constraintTop_toBottomOf="@id/cardSummaryDetails"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -5,20 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_dark_canvas">
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
-    <!-- ── Top Section: Live Metrics Glass Dashboard ── -->
+    <!-- ── Top Section: Live Metrics ── -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/topSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="12dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/glass_card_surface"
-        app:strokeColor="@color/glass_border"
-        app:strokeWidth="1.5dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        style="@style/Widget.ShameTracker.GlassCard.Elevated"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -27,9 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="14dp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="18dp"
             android:gravity="center_horizontal">
 
             <!-- Lap & Status Indicator Row -->
@@ -38,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="8dp">
 
                 <!-- Current Lap Pill -->
                 <TextView
@@ -46,10 +43,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lap 1"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/accent"
-                    android:background="@drawable/bg_glass_chip"
+                    style="@style/TextAppearance.ShameTracker.Caption1"
+                    android:textColor="@color/system_orange"
+                    android:background="@color/glass_border_accent"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="4dp" />
 
@@ -64,10 +60,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total 00:00"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface_medium"
-                    android:background="@drawable/bg_glass_chip"
+                    style="@style/TextAppearance.ShameTracker.Caption1"
+                    android:textColor="@color/label_tertiary"
+                    android:background="@color/system_fill"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="4dp" />
             </LinearLayout>
@@ -78,12 +73,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
-                android:textSize="64sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:includeFontPadding="false"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="6dp" />
+                style="@style/TextAppearance.ShameTracker.HeroMetric"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp" />
 
             <!-- Live Stats Row: Distance & Pace -->
             <LinearLayout
@@ -93,9 +85,9 @@
                 android:orientation="horizontal"
                 android:baselineAligned="false"
                 android:weightSum="2"
-                android:background="@drawable/bg_glass_chip"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="12dp">
+                android:background="@color/tertiary_system_fill"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="16dp">
 
                 <!-- Distance Column -->
                 <LinearLayout
@@ -106,31 +98,25 @@
                     android:gravity="center">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/distance"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/on_surface_medium" />
+                        style="@style/TextAppearance.ShameTracker.MetricLabel"
+                        android:text="@string/distance" />
 
                     <TextView
                         android:id="@+id/tvDistance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0.00 km"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF" />
+                        style="@style/TextAppearance.ShameTracker.LargeMetric"
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
 
                 <!-- Divider -->
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="32dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/glass_border" />
+                    android:background="@color/separator_opaque"
+                    android:alpha="0.3" />
 
                 <!-- Pace Column -->
                 <LinearLayout
@@ -141,23 +127,16 @@
                     android:gravity="center">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pace"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.08"
-                        android:textColor="@color/on_surface_medium" />
+                        style="@style/TextAppearance.ShameTracker.MetricLabel"
+                        android:text="@string/pace" />
 
                     <TextView
                         android:id="@+id/tvPace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0:00 /km"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF" />
+                        style="@style/TextAppearance.ShameTracker.LargeMetric"
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -169,14 +148,10 @@
         android:id="@+id/cardMapFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="22dp"
-        app:cardElevation="0dp"
-        app:strokeColor="@color/glass_border"
-        app:strokeWidth="1.5dp"
-        app:cardBackgroundColor="#0F172A"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        style="@style/Widget.ShameTracker.GlassCard"
         app:layout_constraintTop_toBottomOf="@id/topSection"
         app:layout_constraintBottom_toTopOf="@id/cardLapsContainer"
         app:layout_constraintStart_toStartOf="parent"
@@ -188,18 +163,14 @@
             android:layout_height="match_parent" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- ── Lap Splits Glass Container ── -->
+    <!-- ── Lap Splits Container ── -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLapsContainer"
         android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:layout_marginHorizontal="16dp"
+        android:layout_height="120dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="12dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/glass_card_surface"
-        app:strokeColor="@color/glass_border"
-        app:strokeWidth="1dp"
+        style="@style/Widget.ShameTracker.GlassCard.Subtle"
         app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -216,26 +187,21 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="LAP SPLITS"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08"
-                    android:textColor="@color/on_surface_medium" />
+                    style="@style/TextAppearance.ShameTracker.SectionTitle"
+                    android:text="LAP SPLITS" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DIST · TIME · PACE"
-                    android:textSize="9sp"
-                    android:textColor="@color/on_surface_muted"
-                    android:letterSpacing="0.05" />
+                    style="@style/TextAppearance.ShameTracker.Caption2"
+                    android:text="DIST · TIME · PACE" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -243,19 +209,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingBottom="6dp" />
+                android:paddingBottom="8dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- ── Bottom Action Dock: End Session, Pause, End Lap ── -->
+    <!-- ── Bottom Action Dock ── -->
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="24dp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="34dp"
         android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -264,73 +230,45 @@
         <!-- End Session (Destructive) -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEndSession"
+            style="@style/Widget.ShameTracker.Button.Destructive"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/end_session"
-            android:textSize="11sp"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="#FCA5A5"
-            app:cornerRadius="16dp"
-            app:backgroundTint="@color/error_glass"
-            app:strokeColor="#80EF4444"
-            app:strokeWidth="1.5dp"
             app:icon="@drawable/ic_stop"
-            app:iconTint="#EF4444"
-            app:iconSize="16dp"
-            app:iconGravity="textStart"
-            app:rippleColor="#4DEF4444"
-            android:insetTop="0dp"
-            android:insetBottom="0dp" />
+            app:iconTint="#FFFFFF"
+            app:iconSize="18dp"
+            app:iconGravity="textStart" />
 
         <!-- Pause / Resume -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPause"
+            style="@style/Widget.ShameTracker.Button.Secondary"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/pause_session"
-            android:textSize="11sp"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="#FDE68A"
-            app:cornerRadius="16dp"
-            app:backgroundTint="@color/warning_glass"
-            app:strokeColor="#80F59E0B"
-            app:strokeWidth="1.5dp"
             app:icon="@drawable/ic_pause"
-            app:iconTint="#F59E0B"
-            app:iconSize="16dp"
+            app:iconTint="@color/system_orange"
+            app:iconSize="18dp"
             app:iconGravity="textStart"
-            app:rippleColor="#4DF59E0B"
-            android:insetTop="0dp"
-            android:insetBottom="0dp" />
+            android:textColor="@color/system_orange"
+            app:strokeColor="@color/system_orange" />
 
         <!-- End Lap (Primary Action) -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEndLap"
+            style="@style/Widget.ShameTracker.Button.Primary"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
             android:layout_weight="1.2"
             android:text="@string/end_lap"
-            android:textSize="12sp"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:cornerRadius="16dp"
-            android:background="@drawable/bg_button_primary_accent"
-            app:backgroundTint="@null"
             app:icon="@drawable/ic_flag"
             app:iconTint="#FFFFFF"
-            app:iconSize="16dp"
-            app:iconGravity="textStart"
-            app:rippleColor="#4DFFFFFF"
-            android:elevation="4dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp" />
+            app:iconSize="18dp"
+            app:iconGravity="textStart" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
