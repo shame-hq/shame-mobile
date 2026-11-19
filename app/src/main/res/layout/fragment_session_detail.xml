@@ -223,6 +223,44 @@
             android:layout_height="match_parent" />
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- ── Replay Controls ── -->
+    <LinearLayout
+        android:id="@+id/replayControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:background="@color/glass_card_surface"
+        app:layout_constraintBottom_toTopOf="@id/bottomPanel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnReplayPlay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_media_play"
+            android:contentDescription="Play replay" />
+
+        <SeekBar
+            android:id="@+id/seekReplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="12dp" />
+
+        <TextView
+            android:id="@+id/tvReplayTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:00"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <!-- ── Bottom Lap Splits Panel ── -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottomPanel"

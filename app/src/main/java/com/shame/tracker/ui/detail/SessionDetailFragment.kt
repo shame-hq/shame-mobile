@@ -54,8 +54,8 @@ class SessionDetailFragment : Fragment(R.layout.fragment_session_detail) {
         )
 
         mapView = view.findViewById(R.id.mapView)
-        // Default to satellite tile source
-        mapView.setTileSource(EsriSatTileSource())
+        // Apple Maps-like clean light style by default
+        mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
 
         // ── Lock zoom to neighbourhood scale immediately ──────────────────────
@@ -127,14 +127,8 @@ class SessionDetailFragment : Fragment(R.layout.fragment_session_detail) {
         val allGeoPoints = points.map { GeoPoint(it.latitude, it.longitude) }
         if (allGeoPoints.isEmpty()) return
 
-        // Check if route is in satellite zone
-        val firstPt = allGeoPoints.first()
-        val inZone = SatelliteZone.contains(firstPt.latitude, firstPt.longitude)
-        if (inZone) {
-            mapView.setTileSource(EsriSatTileSource())
-        } else {
-            mapView.setTileSource(TileSourceFactory.MAPNIK)
-        }
+        // Apple Maps-like clean light style
+        mapView.setTileSource(TileSourceFactory.MAPNIK)
 
         // Group points by lapId
         val pointsByLap = points.groupBy { it.lapId }
@@ -151,8 +145,11 @@ class SessionDetailFragment : Fragment(R.layout.fragment_session_detail) {
                 val line = Polyline(mapView)
                 line.setPoints(lapGeoPoints)
                 line.outlinePaint.color = color
-                line.outlinePaint.strokeWidth = 9f
-                line.outlinePaint.alpha = 220
+                line.outlinePaint.strokeWidth = 7f
+                line.outlinePaint.alpha = 235
+                line.outlinePaint.isAntiAlias = true
+                line.outlinePaint.strokeCap = android.graphics.Paint.Cap.ROUND
+                line.outlinePaint.strokeJoin = android.graphics.Paint.Join.ROUND
                 line.infoWindow = null
                 mapView.overlays.add(line)
             }

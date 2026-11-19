@@ -1,4 +1,4 @@
-﻿package com.shame.tracker.service
+package com.shame.tracker.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -45,7 +45,7 @@ object NotificationHelper {
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(context.getString(R.string.notification_tracking_title))
             .setContentText("Time: $timeStr | Lap: $lapCount")
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_directions_run)
             .setContentIntent(pendingIntent)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setOngoing(true)

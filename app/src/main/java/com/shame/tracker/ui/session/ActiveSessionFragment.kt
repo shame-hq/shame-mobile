@@ -26,8 +26,6 @@ import com.shame.tracker.R
 import com.shame.tracker.data.db.entity.GpsPoint
 import com.shame.tracker.data.db.entity.Lap
 import com.shame.tracker.data.model.TrackingState
-import com.shame.tracker.service.EsriSatTileSource
-import com.shame.tracker.service.SatelliteTileDownloadService
 import com.shame.tracker.service.TrackingService
 import com.shame.tracker.util.LapColors
 import com.shame.tracker.util.SatelliteZone
@@ -76,9 +74,8 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
             requireContext().getSharedPreferences("osmdroid", Context.MODE_PRIVATE)
         )
 
-        val esriTileSource = EsriSatTileSource()
         mapView = view.findViewById<MapView>(R.id.mapView).apply {
-            setTileSource(esriTileSource)
+            setTileSource(TileSourceFactory.MAPNIK)
             setMultiTouchControls(true)
             controller.setZoom(17.5)
         }
@@ -86,13 +83,7 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
         // Fetch last known location immediately so user sees their location right away
         initUserCurrentLocation()
 
-        // Start offline satellite tile prefetch if not downloaded yet
-        if (SatelliteTileDownloadService.shouldDownload(requireContext())) {
-            val satIntent = Intent(requireContext(), SatelliteTileDownloadService::class.java).apply {
-                action = SatelliteTileDownloadService.ACTION_START_DOWNLOAD
-            }
-            requireContext().startService(satIntent)
-        }
+        
 
         // ── Lap split list ───────────────────────────────────────────────────
         lapAdapter = LapSplitAdapter()
@@ -352,19 +343,6 @@ class ActiveSessionFragment : Fragment(R.layout.fragment_active_session) {
         // Update latest position & car navigation arrow marker
         latestGeoPoint?.let { currentGeo ->
             mapView?.controller?.animateTo(currentGeo)
-
-            // Switch to 2D standard OSM map if outside the 10km corridor / 5km college-home circles
-            val inZone = SatelliteZone.contains(currentGeo.latitude, currentGeo.longitude)
-            val currentTileSource = mapView?.tileProvider?.tileSource
-            if (inZone) {
-                if (currentTileSource?.name() != "ESRIWorldImagery") {
-                    mapView?.setTileSource(EsriSatTileSource())
-                }
-            } else {
-                if (currentTileSource?.name() != TileSourceFactory.MAPNIK.name()) {
-                    mapView?.setTileSource(TileSourceFactory.MAPNIK)
-                }
-            }
 
             var bearing = 0f
             if (previousGeoPoint != null) {

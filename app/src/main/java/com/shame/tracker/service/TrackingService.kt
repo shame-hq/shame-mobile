@@ -177,6 +177,7 @@ class TrackingService : Service(), LocationListener, SensorEventListener {
             return
         }
 
+        NotificationHelper.createChannel(this)
         val notification = NotificationHelper.buildNotification(this, "00:00", 1)
         startForeground(NotificationHelper.NOTIFICATION_ID, notification)
 
