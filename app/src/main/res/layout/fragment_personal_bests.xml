@@ -91,6 +91,8 @@
                         android:text="LONGEST DISTANCE" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="DISTANCE"
                         android:background="@color/glass_border_blue"
@@ -156,6 +158,8 @@
                         android:text="MOST LAPS IN A RUN" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="STAMINA"
                         android:background="@color/glass_border_accent"
@@ -222,6 +226,8 @@
                         android:text="BEST PACE" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="SPEED"
                         android:background="@color/glass_border_green"
@@ -288,6 +294,8 @@
                         android:text="TOTAL RUNS COMPLETED" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         style="@style/TextAppearance.ShameTracker.Caption2"
                         android:text="STREAK"
                         android:background="@color/glass_border_purple"

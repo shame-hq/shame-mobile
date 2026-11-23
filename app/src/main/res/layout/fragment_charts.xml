@@ -136,10 +136,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         style="@style/TextAppearance.ShameTracker.SectionTitle"
                         android:text="DISTANCE PER RUN" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         style="@style/TextAppearance.ShameTracker.Footnote"
                         android:text="Kilometres per session" />
                 </LinearLayout>
@@ -192,10 +196,14 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             style="@style/TextAppearance.ShameTracker.SectionTitle"
                             android:text="LAPS PER RUN" />
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             style="@style/TextAppearance.ShameTracker.Footnote"
                             android:text="Total laps completed" />
                     </LinearLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -46,8 +47,8 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
                 cardLaps?.visibility = View.GONE
                 barDistance.setNoDataText("Complete a run to see charts!")
                 barLaps.setNoDataText("Complete a run to see charts!")
-                barDistance.setNoDataTextColor(Color.parseColor("#94A3B8"))
-                barLaps.setNoDataTextColor(Color.parseColor("#94A3B8"))
+                barDistance.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                barLaps.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
                 barDistance.invalidate()
                 barLaps.invalidate()
                 return@launch
@@ -65,8 +66,8 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
                 BarEntry(i.toFloat(), (s.totalDistanceMeters / 1000.0).toFloat())
             }
             val distSet = BarDataSet(distEntries, "km").apply {
-                color = Color.parseColor("#F97316")
-                valueTextColor = Color.WHITE
+                color = ContextCompat.getColor(requireContext(), R.color.system_blue)
+                valueTextColor = ContextCompat.getColor(requireContext(), R.color.label_secondary)
                 valueTextSize = 11f
             }
             styleChart(barDistance, labels)
@@ -78,8 +79,8 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
                 BarEntry(i.toFloat(), s.totalLaps.toFloat())
             }
             val lapSet = BarDataSet(lapEntries, "laps").apply {
-                color = Color.parseColor("#06B6D4")
-                valueTextColor = Color.WHITE
+                color = ContextCompat.getColor(requireContext(), R.color.system_orange)
+                valueTextColor = ContextCompat.getColor(requireContext(), R.color.label_secondary)
                 valueTextSize = 11f
             }
             styleChart(barLaps, labels)
@@ -99,9 +100,9 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
             axisRight.isEnabled = false
             axisLeft.apply {
                 setDrawGridLines(true)
-                gridColor = Color.parseColor("#1FFFFFFF")
+                gridColor = ContextCompat.getColor(context, R.color.system_gray5)
                 setDrawAxisLine(false)
-                textColor = Color.parseColor("#94A3B8")
+                textColor = ContextCompat.getColor(context, R.color.label_secondary)
                 textSize = 10f
                 axisMinimum = 0f
             }
@@ -109,7 +110,7 @@ class ChartsFragment : Fragment(R.layout.fragment_charts) {
                 position = XAxis.XAxisPosition.BOTTOM
                 setDrawGridLines(false)
                 setDrawAxisLine(false)
-                textColor = Color.parseColor("#94A3B8")
+                textColor = ContextCompat.getColor(context, R.color.label_secondary)
                 textSize = 10f
                 granularity = 1f
                 valueFormatter = IndexAxisValueFormatter(labels)

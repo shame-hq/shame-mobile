@@ -1,4 +1,4 @@
-﻿package com.shame.tracker.ui.home
+package com.shame.tracker.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -26,10 +26,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         val btnStart: Button = view.findViewById(R.id.btnStartSession)
-        val btnHistory: Button = view.findViewById(R.id.btnHistory)
-        val btnCharts: Button = view.findViewById(R.id.btnCharts)
-        val btnBests: Button = view.findViewById(R.id.btnBests)
-        val btnSettings: Button = view.findViewById(R.id.btnSettings)
+        val btnHistory: View = view.findViewById(R.id.btnHistory)
+        val btnCharts: View = view.findViewById(R.id.btnCharts)
+        val btnBests: View = view.findViewById(R.id.btnBests)
+        val btnSettings: View = view.findViewById(R.id.btnSettings)
         
         val tvLastRunInfo: TextView = view.findViewById(R.id.tvLastRunInfo)
 
